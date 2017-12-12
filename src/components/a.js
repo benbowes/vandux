@@ -13,7 +13,7 @@ function reducer(state = {}, action) {
 // Perform DOM alterations in here
 function render(obj, dom, event) {
   const el = dom;
-  el.innerText = JSON.stringify(obj, null, 2);
+  el.innerText = JSON.stringify({ ...obj, lastEvent: event }, null, 2);
   el.setAttribute('data-last-event-fired', event);
 }
 

@@ -207,10 +207,8 @@ function reducer() {
 // Perform DOM alterations in here
 function render(obj, dom, event) {
   var el = dom;
-  var newValue = JSON.stringify(obj, null, 2);
-
-  el.innerText = newValue;
-  dom.setAttribute('data-thing', event + '-' + obj.aaa);
+  el.innerText = JSON.stringify(_extends({}, obj, { lastEvent: event }), null, 2);
+  el.setAttribute('data-last-event-fired', event);
 }
 
 // Setup connections in here
@@ -290,7 +288,7 @@ function reducer() {
   var action = arguments[1];
 
   switch (action.type) {
-    case 'ADD_THINGS':
+    case 'ADD_TEXT':
       return _extends({}, state, action.data);
     case 'INCREMENT':
       return _extends({}, state, { value: state.value + 1 });
@@ -304,16 +302,14 @@ function reducer() {
 // Perform DOM alterations in here
 function render(obj, dom, event) {
   var el = dom;
-  var newValue = JSON.stringify(obj, null, 2);
-
-  el.innerText = newValue;
-  dom.setAttribute('data-bbb', event + '-' + obj.bbb);
+  el.innerText = JSON.stringify(_extends({}, obj, { lastEvent: event }), null, 2);
+  el.setAttribute('data-last-event-fired', event);
 }
 
 // Setup connections in here
 function setupListeners(store) {
   document.querySelector('#inputBBB').addEventListener('keyup', function (e) {
-    store.publish('ADD_THINGS', { bbb: e.target.value });
+    store.publish('ADD_TEXT', { bbb: e.target.value });
   });
   document.querySelector('#buttonIncrement').addEventListener('click', function () {
     store.publish('INCREMENT');
@@ -330,7 +326,7 @@ exports.default = function (initialState) {
   var store = (0, _createStore2.default)({
     reducer: reducer,
     initialState: initialState
-  }).connect(['ADD_THINGS', 'INCREMENT', 'DECREMENT'])(dom)(render);
+  }).connect(['ADD_TEXT', 'INCREMENT', 'DECREMENT'])(dom)(render);
 
   setupListeners(store);
 };
