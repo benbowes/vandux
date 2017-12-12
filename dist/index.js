@@ -157,19 +157,19 @@ module.exports = __webpack_require__(2);
 "use strict";
 
 
-var _a = __webpack_require__(3);
+var _componentA = __webpack_require__(3);
 
-var _a2 = _interopRequireDefault(_a);
+var _componentA2 = _interopRequireDefault(_componentA);
 
-var _b = __webpack_require__(5);
+var _componentB = __webpack_require__(6);
 
-var _b2 = _interopRequireDefault(_b);
+var _componentB2 = _interopRequireDefault(_componentB);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 document.addEventListener('DOMContentLoaded', function () {
-  (0, _a2.default)({ thing: 'ddd', aaa: '' });
-  (0, _b2.default)({ a_bit_of: 'initial state', bbb: '', value: 20 });
+  (0, _componentA2.default)({ thing: 'ddd', aaa: '' });
+  (0, _componentB2.default)({ a_bit_of: 'initial state', bbb: '', value: 20 });
 });
 
 /***/ }),
@@ -189,20 +189,11 @@ var _createStore = __webpack_require__(0);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
+var _reducer = __webpack_require__(5);
+
+var _reducer2 = _interopRequireDefault(_reducer);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Perform STATE manipulations in here
-function reducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  var action = arguments[1];
-
-  switch (action.type) {
-    case 'ADD_IT_AS_IT_COMES':
-      return _extends({}, state, action.data);
-    default:
-      return _extends({}, state);
-  }
-}
 
 // Perform DOM alterations in here
 function render(obj, dom, event) {
@@ -227,7 +218,7 @@ function setupListeners(store) {
 exports.default = function (initialState) {
   var dom = document.querySelector('#connected1');
   var store = (0, _createStore2.default)({
-    reducer: reducer,
+    reducer: _reducer2.default,
     initialState: initialState
   }).connect(['ADD_IT_AS_IT_COMES'])(dom)(render);
 
@@ -280,28 +271,41 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _createStore = __webpack_require__(0);
-
-var _createStore2 = _interopRequireDefault(_createStore);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 // Perform STATE manipulations in here
-function reducer() {
+exports.default = function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments[1];
 
   switch (action.type) {
-    case 'ADD_TEXT':
+    case 'ADD_IT_AS_IT_COMES':
       return _extends({}, state, action.data);
-    case 'INCREMENT':
-      return _extends({}, state, { value: state.value + 1 });
-    case 'DECREMENT':
-      return _extends({}, state, { value: state.value - 1 });
     default:
       return _extends({}, state);
   }
-}
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createStore = __webpack_require__(0);
+
+var _createStore2 = _interopRequireDefault(_createStore);
+
+var _reducer = __webpack_require__(7);
+
+var _reducer2 = _interopRequireDefault(_reducer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Perform DOM alterations in here
 function render(obj, dom, event) {
@@ -332,11 +336,41 @@ function setupListeners(store) {
 exports.default = function (initialState) {
   var dom = document.querySelector('#connected2');
   var store = (0, _createStore2.default)({
-    reducer: reducer,
+    reducer: _reducer2.default,
     initialState: initialState
   }).connect(['ADD_TEXT', 'INCREMENT', 'DECREMENT'])(dom)(render);
 
   setupListeners(store);
+};
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// Perform STATE manipulations in here
+exports.default = function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments[1];
+
+  switch (action.type) {
+    case 'ADD_TEXT':
+      return _extends({}, state, action.data);
+    case 'INCREMENT':
+      return _extends({}, state, { value: state.value + 1 });
+    case 'DECREMENT':
+      return _extends({}, state, { value: state.value - 1 });
+    default:
+      return _extends({}, state);
+  }
 };
 
 /***/ })

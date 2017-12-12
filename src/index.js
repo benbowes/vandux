@@ -1,5 +1,5 @@
-import componentA from './components/a';
-import componentB from './components/b';
+import componentA from './components/componentA';
+import componentB from './components/componentB';
 
 document.addEventListener('DOMContentLoaded', () => {
   componentA({ thing: 'ddd', aaa: '' });
