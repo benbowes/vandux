@@ -27,6 +27,7 @@
       }
 
       input[type="text"] {
+        font-size: inherit;
         display: block;
         width: 100%;
         padding: 1rem;
@@ -43,28 +44,38 @@
         margin: 0 0 2rem 0;
       }
 
+      .github {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+      }
+
     </style>
-    <title>Codez</title>
+    <title>Redux style store vanilla js</title>
+    <meta name="description" content="A vanilla javascript ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers, for use with already existing dom elements">
+
   </head>
   <body>
-    <h3>ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers</h3>
+    <a class="github" href="https://github.com/benbowes/redux-style-store-vanilla-js/">Github repo</a>
+
+    <h1>ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers</h1>
 
     <div class="wrapper">
-      <p>Component 1</p>
+      <h3>Component 1 state</h3>
       <pre><code id='connected1'></code></pre>
-
-      <p>Alter "aaa"</p>
-      <input type="text" id='inputAAA'></input>
+      <p>
+        <input type="text" id='inputAAA' placeholder="Alter 'aaa'"></input>
+      </p>
     </div>
 
     <div class="wrapper">
-      <p>Component 2</p>
+      <h3>Component 2 state</h3>
       <pre><code id='connected2'></code></pre>
-
-      <p>Alter "bbb"</p>
-      <input type="text" id='inputBBB'></input>
-
-      <p>Alter "value"</p>
+      <p>
+        <input type="text" id='inputBBB' placeholder="Alter 'bbb'"></input>
+      </p>
+      <br/>
+      <p>Alter `state.value`</p>
       <button id='buttonIncrement'>+1</input>
       <button id='buttonDecrement'>-1</input>
     </div>
