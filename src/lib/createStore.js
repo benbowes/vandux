@@ -8,7 +8,6 @@ import stateMachine from './stateMachine';
 * function in the object tree.
 */
 export default ({ reducer, initialState }) => {
-  // Merge any existing stores/reducers into this one
   const context = {};
 
   context.pubSub = () => {
@@ -19,10 +18,7 @@ export default ({ reducer, initialState }) => {
       getState: () => store.state,
 
       subscribe: (event, listener) => {
-        if (!events.hasOwnProperty.call(events, event)) {
-          events[event] = [];
-        }
-
+        if (!events.hasOwnProperty.call(events, event)) events[event] = [];
         const index = events[event].push(listener) - 1;
         return {
           unsubscribe: () => delete events[event][index]
@@ -40,17 +36,13 @@ export default ({ reducer, initialState }) => {
       },
 
       publish: (event, payload) => {
-        if (!events.hasOwnProperty.call(events, event)) {
-          return;
-        }
-
-        if (window.location.search.indexOf('debug') > -1) console.log(event, payload);
-
+        if (!events.hasOwnProperty.call(events, event)) return;
         store.setState(reducer(store.state, { type: event, data: payload }));
-
         events[event].forEach((listener) => {
           listener(store.state !== undefined ? store.state : {});
         });
+        // Print each published message if location has '?debug'
+        if (window.location.search.indexOf('debug') > -1) console.log(event, payload);
       }
     };
   };

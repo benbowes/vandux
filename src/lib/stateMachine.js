@@ -1,6 +1,6 @@
 /**
 * State Machine Pattern
-* A higher order function that takes initailState and returns
+* A function that takes initialState and returns
 * an interface for altering/getting state
 */
 export default (initialState = {}) => {

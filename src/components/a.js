@@ -19,6 +19,14 @@ function render(obj, dom, event) {
   dom.setAttribute('data-thing', `${event}-${obj.aaa}`);
 }
 
+// Setup connections in here
+function setupListeners(store) {
+  document.querySelector('#inputAAA').addEventListener('keyup', (e) => {
+    store.publish('ADD_IT_AS_IT_COMES', { aaa: e.target.value });
+  });
+}
+
+// Entry function
 export default (initialState) => {
   const dom = document.querySelector('#connected1');
   const store = createStore({
@@ -26,7 +34,5 @@ export default (initialState) => {
     initialState
   }).connect(['ADD_IT_AS_IT_COMES'])(dom)(render);
 
-  document.querySelector('#inputAAA').addEventListener('keyup', (e) => {
-    store.publish('ADD_IT_AS_IT_COMES', { aaa: e.target.value });
-  });
+  setupListeners(store);
 };

@@ -23,6 +23,20 @@ function render(obj, dom, event) {
   dom.setAttribute('data-bbb', `${event}-${obj.bbb}`);
 }
 
+// Setup connections in here
+function setupListeners(store) {
+  document.querySelector('#inputBBB').addEventListener('keyup', (e) => {
+    store.publish('ADD_THINGS', { bbb: e.target.value });
+  });
+  document.querySelector('#buttonIncrement').addEventListener('click', () => {
+    store.publish('INCREMENT');
+  });
+  document.querySelector('#buttonDecrement').addEventListener('click', () => {
+    store.publish('DECREMENT');
+  });
+}
+
+// Entry function
 export default (initialState) => {
   const dom = document.querySelector('#connected2');
   const store = createStore({
@@ -30,15 +44,5 @@ export default (initialState) => {
     initialState
   }).connect(['ADD_THINGS', 'INCREMENT', 'DECREMENT'])(dom)(render);
 
-  document.querySelector('#inputBBB').addEventListener('keyup', (e) => {
-    store.publish('ADD_THINGS', { bbb: e.target.value });
-  });
-
-  document.querySelector('#buttonIncrement').addEventListener('click', () => {
-    store.publish('INCREMENT');
-  });
-
-  document.querySelector('#buttonDecrement').addEventListener('click', () => {
-    store.publish('DECREMENT');
-  });
+  setupListeners(store);
 };
