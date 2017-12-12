@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <script src="./index.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-size: 16px;
+        font-family: sans-serif;
+        margin: 3rem;
+      }
+
+      pre {
+        letter-spacing: 1px;
+        background: #f1f1f1;
+        padding: 1rem;
+      }
+
+      code {
+        font-size: inherit;
+        display: block;
+        white-space: pre-wrap;
+      }
+
+      input[type="text"] {
+        display: block;
+        width: 100%;
+        padding: 1rem;
+      }
+
+      button {
+        padding: 1rem;
+        font-size: inherit;
+      }
+
+      .wrapper {
+        border: 3px #ccc solid;
+        padding: 1rem;
+        margin: 0 0 2rem 0;
+      }
+
+    </style>
+    <title>Codez</title>
+  </head>
+  <body>
+    <h3>ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers</h3>
+
+    <div class="wrapper">
+      <p>store connection1</p>
+      <pre><code id='connected1'></code></pre>
+
+      <p>Alter "aaa"</p>
+      <input type="text" id='inputAAA'></input>
+    </div>
+
+    <div class="wrapper">
+      <p>store connection2</p>
+      <pre><code id='connected2'></code></pre>
+
+      <p>Alter "bbb"</p>
+      <input type="text" id='inputBBB'></input>
+
+      <p>Alter "value"</p>
+      <button id='buttonIncrement'>+1</input>
+      <button id='buttonDecrement'>-1</input>
+    </div>
+  </body>
+</html>
