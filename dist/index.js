@@ -208,6 +208,10 @@ function reducer() {
 function render(obj, dom, event) {
   var el = dom;
   el.innerText = JSON.stringify(_extends({}, obj, { lastEvent: event }), null, 2);
+  el.classList.remove('added-data');
+  setTimeout(function () {
+    return el.classList.add('added-data');
+  });
   el.setAttribute('data-last-event-fired', event);
 }
 
@@ -303,6 +307,10 @@ function reducer() {
 function render(obj, dom, event) {
   var el = dom;
   el.innerText = JSON.stringify(_extends({}, obj, { lastEvent: event }), null, 2);
+  el.classList.remove('added-data');
+  setTimeout(function () {
+    return el.classList.add('added-data');
+  });
   el.setAttribute('data-last-event-fired', event);
 }
 

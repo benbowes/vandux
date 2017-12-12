@@ -14,6 +14,8 @@ function reducer(state = {}, action) {
 function render(obj, dom, event) {
   const el = dom;
   el.innerText = JSON.stringify({ ...obj, lastEvent: event }, null, 2);
+  el.classList.remove('added-data');
+  setTimeout(() => el.classList.add('added-data'));
   el.setAttribute('data-last-event-fired', event);
 }
 

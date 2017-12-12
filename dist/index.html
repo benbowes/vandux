@@ -3,54 +3,7 @@
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <script src="./index.js"></script>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      body {
-        font-size: 16px;
-        font-family: sans-serif;
-        margin: 3rem;
-      }
-
-      pre {
-        letter-spacing: 1px;
-        background: #f1f1f1;
-        padding: 1rem;
-      }
-
-      code {
-        font-size: inherit;
-        display: block;
-        white-space: pre-wrap;
-      }
-
-      input[type="text"] {
-        font-size: inherit;
-        display: block;
-        width: 100%;
-        padding: 1rem;
-      }
-
-      button {
-        padding: 1rem;
-        font-size: inherit;
-      }
-
-      .wrapper {
-        border: 3px #ccc solid;
-        padding: 1rem;
-        margin: 0 0 2rem 0;
-      }
-
-      .github {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-      }
-
-    </style>
+    <link rel='stylesheet' type='text/css' href='style.css'>
     <title>Redux style store vanilla js</title>
     <meta name="description" content="A vanilla javascript ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers, for use with already existing dom elements">
 
@@ -74,10 +27,10 @@
       <p>
         <input type="text" id='inputBBB' placeholder="Alter 'bbb'"></input>
       </p>
-      <br/>
-      <p>Alter `state.value`</p>
-      <button id='buttonIncrement'>+1</input>
-      <button id='buttonDecrement'>-1</input>
+      <p>
+        <button id='buttonIncrement'>Add 1 to value</button>
+        <button id='buttonDecrement'>Remove 1 from value</button>
+      </p>
     </div>
   </body>
 </html>
