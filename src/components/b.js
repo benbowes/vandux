@@ -17,10 +17,8 @@ function reducer(state = {}, action) {
 // Perform DOM alterations in here
 function render(obj, dom, event) {
   const el = dom;
-  const newValue = JSON.stringify(obj, null, 2);
-
-  el.innerText = newValue;
-  dom.setAttribute('data-bbb', `${event}-${obj.bbb}`);
+  el.innerText = JSON.stringify(obj, null, 2);
+  el.setAttribute('data-last-event-fired', event);
 }
 
 // Setup connections in here
