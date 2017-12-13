@@ -10,31 +10,31 @@ import stateMachine from './stateMachine';
 export default ({ reducer, initialState }) => {
   const context = {};
 
-  context.pubSub = () => {
+  context.makeStore = () => {
     const store = stateMachine();
     const events = {};
+    const doInitialRender = (renderFunction, dom) => {
+      const newState = reducer(initialState, { type: 'INIT' });
+      store.setState(newState);
+      if (renderFunction) renderFunction(newState, dom, 'INIT', context.createdStore);
+    };
 
     return {
       getState: () => store.state,
-
       subscribe: (event, listener) => {
         if (!events.hasOwnProperty.call(events, event)) events[event] = [];
         const index = events[event].push(listener) - 1;
-        return {
-          unsubscribe: () => delete events[event][index]
-        };
+        return { unsubscribe: () => delete events[event][index] };
       },
-
       connect: (eventsToSubscribe) => (dom) => (renderFunction) => {
         eventsToSubscribe.forEach((evt) => {
-          context.instance.subscribe(evt, (obj) => {
-            if (renderFunction) renderFunction(obj, dom, evt);
+          context.createdStore.subscribe(evt, (obj) => {
+            if (renderFunction) renderFunction(obj, dom, evt, context.createdStore);
           });
-          context.instance.publish(evt, reducer(initialState, { type: 'INIT' }));
         });
-        return context.instance;
+        doInitialRender(renderFunction, dom);
+        return context.createdStore;
       },
-
       publish: (event, payload) => {
         if (!events.hasOwnProperty.call(events, event)) return;
         store.setState(reducer(store.state, { type: event, data: payload }));
@@ -47,7 +47,7 @@ export default ({ reducer, initialState }) => {
     };
   };
 
-  context.instance = context.pubSub();
+  context.createdStore = context.makeStore();
 
-  return context.instance;
+  return context.createdStore;
 };

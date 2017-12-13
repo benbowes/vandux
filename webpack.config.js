@@ -2,6 +2,8 @@ const { resolve } = require('path');
 
 module.exports = {
 
+  devtool: 'eval',
+
   devServer: {
     inline: true,
     contentBase: resolve(__dirname, 'dist')

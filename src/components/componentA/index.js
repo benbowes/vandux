@@ -2,28 +2,29 @@ import createStore from '../../lib/createStore';
 import reducer from './reducer';
 
 // Perform DOM alterations in here
-function render(obj, dom, event) {
-  const el = dom;
-  el.innerText = JSON.stringify({ ...obj, lastEvent: event }, null, 2);
-  el.classList.remove('added-data');
-  setTimeout(() => el.classList.add('added-data'));
-  el.setAttribute('data-last-event-fired', event);
+function render(obj, el, event) {
+  const codeBlockEl = el.querySelector('[data-id=code]');
+  const lastEventEl = el.querySelector('[data-id=last-event]');
+  const nameEl = el.querySelector('[data-id=name]');
+
+  lastEventEl.innerText = event;
+  nameEl.innerText = obj.name;
+  codeBlockEl.innerText = JSON.stringify({ ...obj, lastEvent: event }, null, 2);
 }
 
-// Setup connections in here
-function setupListeners(store) {
-  document.querySelector('#inputAAA').addEventListener('keyup', (e) => {
-    store.publish('ADD_IT_AS_IT_COMES', { aaa: e.target.value });
-  });
+function addListeners(el, store) {
+  el.querySelector('[data-id=input]').addEventListener('keyup', (e) => {
+    store.publish('SMASH_IT_IN_THERE', { name: e.target.value });
+  }, true);
 }
 
 // Entry function
 export default (initialState) => {
-  const dom = document.querySelector('#connected1');
+  const el = document.querySelector('[data-id=componentA');
   const store = createStore({
     reducer,
     initialState
-  }).connect(['ADD_IT_AS_IT_COMES'])(dom)(render);
+  }).connect(['SMASH_IT_IN_THERE'])(el)(render);
 
-  setupListeners(store);
+  addListeners(el, store);
 };

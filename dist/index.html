@@ -13,23 +13,28 @@
 
     <h1>ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers</h1>
 
-    <div class="wrapper">
+    <div class="wrapper" data-id="componentA">
       <h3>Component 1 state</h3>
-      <pre><code id='connected1'></code></pre>
       <p>
-        <input type="text" id='inputAAA' placeholder="Alter 'aaa'"></input>
+        <b>Last event: </b><span data-id="last-event"></span><br />
+        <b>Name: </b><span data-id="name"></span>
       </p>
+      <pre><code data-id="code"></code></pre>
+      <p><input type="text" data-id="input" placeholder="Alter 'Name'"></input></p>
     </div>
 
-    <div class="wrapper">
+    <div class="wrapper" data-id="componentB">
       <h3>Component 2 state</h3>
-      <pre><code id='connected2'></code></pre>
       <p>
-        <input type="text" id='inputBBB' placeholder="Alter 'bbb'"></input>
+        <b>Last event: </b><span data-id="last-event"></span><br />
+        <b>Title: </b><span data-id="title"></span><br />
+        <b>Value: </b><span data-id="value"></span>
       </p>
+      <pre><code data-id="code"></code></pre>
+      <p><input type="text" data-id="input" placeholder="Alter 'Title'"></input></p>
       <p>
-        <button id='buttonIncrement'>Add 1 to value</button>
-        <button id='buttonDecrement'>Remove 1 from value</button>
+        <button data-id="button-increment">Add 1 to value</button>
+        <button data-id="button-decrement">Remove 1 from value</button>
       </p>
     </div>
   </body>

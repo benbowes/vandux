@@ -1,7 +1,7 @@
 // Perform STATE manipulations in here
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_TEXT':
+    case 'UPDATE_TITLE':
       return { ...state, ...action.data };
     case 'INCREMENT':
       return { ...state, value: state.value + 1 };
