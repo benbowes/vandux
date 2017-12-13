@@ -2,10 +2,9 @@ import stateMachine from './stateMachine';
 
 /**
 * creatStore() is the initializer for the store
-* @param {function} reducer - see addThingsReducer
+* @param {function} reducer - see the reducers in the components directory
 * @param {object} initialState - whatever you want to intialise your
-* store with - this part of state will sit under th name of the
-* function in the object tree.
+* store with.
 */
 export default ({ reducer, initialState }) => {
   const context = {};
