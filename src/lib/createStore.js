@@ -1,5 +1,13 @@
 import stateMachine from './stateMachine';
 
+const reportDebugger = (dom, event, payload) => {
+  console.log(
+    Object.keys(dom.attributes).map((v) => dom.attributes[v].value), // DOM attributes array
+    event,
+    payload
+  );
+};
+
 /**
 * creatStore() is the initializer for the store
 * @param {function} reducer - see the reducers in the components directory
@@ -11,14 +19,11 @@ export default ({ reducer, initialState }) => {
   context.makeStore = () => {
     const store = stateMachine();
     const events = {};
-    const reportDebugger = (event, payload) => {
-      // console.log if location has '?debug'
-      if (window.location.search.indexOf('debug') > -1) console.log(event, payload);
-    };
+    const isDebug = (window.location.search.indexOf('debug') > -1); // if location has '?debug'
     const doInitialRender = (renderFunction, dom) => {
       const newState = reducer(initialState, { type: 'INIT' });
       store.setState(newState);
-      reportDebugger('INIT', initialState);
+      if (isDebug) reportDebugger(dom, 'INIT', initialState);
       if (renderFunction) renderFunction(newState, dom, 'INIT', context.createdStore);
     };
 
@@ -32,7 +37,7 @@ export default ({ reducer, initialState }) => {
       connect: (eventsToSubscribe) => (dom) => (renderFunction) => {
         eventsToSubscribe.forEach((evt) => {
           context.createdStore.subscribe(evt, (obj) => {
-            reportDebugger(evt, obj);
+            if (isDebug) reportDebugger(dom, evt, obj);
             if (renderFunction) renderFunction(obj, dom, evt, context.createdStore);
           });
         });
