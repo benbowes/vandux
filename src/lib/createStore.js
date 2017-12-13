@@ -11,9 +11,14 @@ export default ({ reducer, initialState }) => {
   context.makeStore = () => {
     const store = stateMachine();
     const events = {};
+    const reportDebugger = (event, payload) => {
+      // console.log if location has '?debug'
+      if (window.location.search.indexOf('debug') > -1) console.log(event, payload);
+    };
     const doInitialRender = (renderFunction, dom) => {
       const newState = reducer(initialState, { type: 'INIT' });
       store.setState(newState);
+      reportDebugger('INIT', initialState);
       if (renderFunction) renderFunction(newState, dom, 'INIT', context.createdStore);
     };
 
@@ -27,10 +32,12 @@ export default ({ reducer, initialState }) => {
       connect: (eventsToSubscribe) => (dom) => (renderFunction) => {
         eventsToSubscribe.forEach((evt) => {
           context.createdStore.subscribe(evt, (obj) => {
+            reportDebugger(evt, obj);
             if (renderFunction) renderFunction(obj, dom, evt, context.createdStore);
           });
         });
         doInitialRender(renderFunction, dom);
+        return context.createdStore;
       },
       publish: (event, payload) => {
         if (!events.hasOwnProperty.call(events, event)) return;
