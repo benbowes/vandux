@@ -1,12 +1,5 @@
 import stateMachine from './stateMachine';
-
-const reportDebugger = (dom, event, payload) => {
-  console.log(
-    Object.keys(dom.attributes).map((v) => dom.attributes[v].value), // DOM attributes array
-    event,
-    payload
-  );
-};
+import eventLogger from './eventLogger';
 
 /**
 * creatStore() is the initializer for the store
@@ -23,7 +16,7 @@ export default ({ reducer, initialState }) => {
     const doInitialRender = (renderFunction, dom) => {
       const newState = reducer(initialState, { type: 'INIT' });
       store.setState(newState);
-      if (isDebug) reportDebugger(dom, 'INIT', initialState);
+      if (isDebug) eventLogger(dom, 'INIT', initialState);
       if (renderFunction) renderFunction(newState, dom, 'INIT', context.createdStore);
     };
 
@@ -37,7 +30,7 @@ export default ({ reducer, initialState }) => {
       connect: (eventsToSubscribe) => (dom) => (renderFunction) => {
         eventsToSubscribe.forEach((evt) => {
           context.createdStore.subscribe(evt, (obj) => {
-            if (isDebug) reportDebugger(dom, evt, obj);
+            if (isDebug) eventLogger(dom, evt, obj);
             if (renderFunction) renderFunction(obj, dom, evt, context.createdStore);
           });
         });
@@ -47,9 +40,7 @@ export default ({ reducer, initialState }) => {
       publish: (event, payload) => {
         if (!events.hasOwnProperty.call(events, event)) return;
         store.setState(reducer(store.state, { type: event, data: payload }));
-        events[event].forEach((listener) => {
-          listener(store.state !== undefined ? store.state : {});
-        });
+        events[event].forEach(listener => listener(store.state !== undefined ? store.state : {}));
       }
     };
   };
