@@ -26,7 +26,7 @@ export default ({ reducer, initialState }) => {
         const index = events[event].push(listener) - 1;
         return { unsubscribe: () => delete events[event][index] };
       },
-      connect: (eventsToSubscribe) => (dom) => (renderFunction) => {
+      connect: (eventsToSubscribe, dom, renderFunction) => {
         eventsToSubscribe.forEach((evt) => {
           context.createdStore.subscribe(evt, (obj) => {
             if (isDebug) eventLogger(dom, evt, obj);

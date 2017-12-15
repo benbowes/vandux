@@ -13,18 +13,18 @@ function render(obj, el, event) {
 }
 
 function addListeners(el, store) {
-  el.querySelector('[data-id=input]').addEventListener('keyup', (e) => {
-    store.publish('SMASH_IT_IN_THERE', { name: e.target.value });
-  }, true);
+  el.querySelector('[data-id=input]').addEventListener('keyup', e =>
+    store.publish('SMASH_IT_IN_THERE', { name: e.target.value }));
 }
 
 // Entry function
 export default (initialState) => {
   const el = document.querySelector('[data-id=componentA');
+
   const store = createStore({
     reducer,
     initialState
-  }).connect(['SMASH_IT_IN_THERE'])(el)(render);
+  }).connect(['SMASH_IT_IN_THERE'], el, render);
 
   addListeners(el, store);
 };

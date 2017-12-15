@@ -15,20 +15,22 @@ function render(obj, el, event) {
 }
 
 function addListeners(el, store) {
-  el.querySelector('[data-id=input]').addEventListener('keyup', (e) => {
-    store.publish('UPDATE_TITLE', { title: e.target.value });
-  });
-  el.querySelector('[data-id=button-increment]').addEventListener('click', () => store.publish('INCREMENT'));
-  el.querySelector('[data-id=button-decrement]').addEventListener('click', () => store.publish('DECREMENT'));
+  el.querySelector('[data-id=input]').addEventListener('keyup', e =>
+    store.publish('UPDATE_TITLE', { title: e.target.value }));
+  el.querySelector('[data-id=button-increment]').addEventListener('click', () =>
+    store.publish('INCREMENT'));
+  el.querySelector('[data-id=button-decrement]').addEventListener('click', () =>
+    store.publish('DECREMENT'));
 }
 
 // Entry function
 export default (initialState) => {
   const el = document.querySelector('[data-id=componentB]');
+
   const store = createStore({
     reducer,
     initialState
-  }).connect(['UPDATE_TITLE', 'INCREMENT', 'DECREMENT'])(el)(render);
+  }).connect(['UPDATE_TITLE', 'INCREMENT', 'DECREMENT'], el, render);
 
   addListeners(el, store);
 };
