@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+:focus {
+  outline: 0;
+}
+
 body {
   font-size: 16px;
   font-family: sans-serif;
@@ -59,4 +63,49 @@ button:hover {
   position: absolute;
   top: 15px;
   right: 15px;
+}
+
+.select {
+  max-width: 200px;
+  position: relative;
+}
+
+.select__button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.select__button__icon {
+  fill: #fff;
+  align-self: center;
+  transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.select--open .select__button__icon {
+  transform: rotate(180deg);
+}
+
+.select__options {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-width: 0 1px 1px 1px;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.select--open .select__options {
+  max-height: 160px;
+  box-shadow: 0 1px 24px 0 rgba(0, 0, 0, 0.2);
+}
+
+.select__option {
+  padding: 1rem;
+  border-top: 1px solid #ccc;
 }

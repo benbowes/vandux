@@ -1,9 +1,15 @@
 // Perform STATE manipulations in here
 export default (state = {}, action) => {
   switch (action.type) {
-    case 'SMASH_IT_IN_THERE':
-      return { ...state, ...action.data };
+    case 'TOGGLE_OPTIONS':
+      return {
+        ...state,
+        open: !state.open
+      };
+
     default:
-      return { ...state };
+      return {
+        ...state
+      };
   }
 };

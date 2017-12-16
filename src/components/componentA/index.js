@@ -2,29 +2,37 @@ import createStore from '../../lib/createStore';
 import reducer from './reducer';
 
 // Perform DOM alterations in here
-function render(obj, el, event) {
+function render(state, el, event) {
   const codeBlockEl = el.querySelector('[data-id=code]');
   const lastEventEl = el.querySelector('[data-id=last-event]');
-  const nameEl = el.querySelector('[data-id=name]');
+  const buttonEl = el.querySelector('[data-id=selector]');
+
+  if (state.open) {
+    buttonEl.classList.add('select--open');
+  } else {
+    buttonEl.classList.remove('select--open');
+  }
 
   lastEventEl.innerText = event;
-  nameEl.innerText = obj.name;
-  codeBlockEl.innerText = JSON.stringify({ ...obj, lastEvent: event }, null, 2);
+  codeBlockEl.innerText = JSON.stringify({ ...state, lastEvent: event }, null, 2);
 }
 
 function addListeners(el, store) {
-  el.querySelector('[data-id=input]').addEventListener('keyup', e =>
-    store.publish('SMASH_IT_IN_THERE', { name: e.target.value }));
+  el.querySelector('[data-id=selector-button]').addEventListener('click', () =>
+    store.publish('TOGGLE_OPTIONS'));
 }
 
 // Entry function
 export default (initialState) => {
-  const el = document.querySelector('[data-id=componentA');
+  const el = document.querySelector('[data-id=componentA]');
 
   const store = createStore({
     reducer,
     initialState
-  }).connect(['SMASH_IT_IN_THERE'], el, render);
+  }).connect(['TOGGLE_OPTIONS'], el, render);
 
   addListeners(el, store);
+
+  // Returning here is not required - solely for tests
+  return { el, store };
 };
