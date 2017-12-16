@@ -3,17 +3,18 @@ import reducer from './reducer';
 
 // Perform DOM alterations in here
 function render(state, el, event) {
+  // setup DOM Element references
   const codeBlockEl = el.querySelector('[data-id=code]');
   const lastEventEl = el.querySelector('[data-id=last-event]');
   const isOpenEl = el.querySelector('[data-id="is-open"]');
   const buttonEl = el.querySelector('[data-id=selector]');
 
+  // Add data to the DOM
   if (state.open) {
     buttonEl.classList.add('select--open');
   } else {
     buttonEl.classList.remove('select--open');
   }
-
   isOpenEl.innerText = state.open;
   lastEventEl.innerText = event;
   codeBlockEl.innerText = JSON.stringify({ ...state, lastEvent: event }, null, 2);

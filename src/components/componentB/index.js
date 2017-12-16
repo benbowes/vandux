@@ -3,12 +3,14 @@ import reducer from './reducer';
 
 // Perform DOM alterations in here
 function render(state, el, event) {
+  // setup DOM Element references
   const codeBlockEl = el.querySelector('[data-id=code]');
   const lastEventEl = el.querySelector('[data-id=last-event]');
   const nameEl = el.querySelector('[data-id=name]');
   const titleEl = el.querySelector('[data-id=title]');
   const valueEl = el.querySelector('[data-id=value]');
 
+  // Add data to the DOM
   lastEventEl.innerText = event;
   nameEl.innerText = state.name;
   titleEl.innerText = state.title;

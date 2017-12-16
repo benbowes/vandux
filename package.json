@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "webpack",
+    "build": "webpack -p",
     "test": "mocha --require babel-register 'src/**/*__test__.js'"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "babel-preset-stage-0": "6.24.x",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
+    "deep-freeze": "^0.0.1",
     "jsdom": "^11.5.1",
     "jsdom-simulant": "^1.1.2",
     "mocha": "^4.0.1",
