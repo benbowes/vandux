@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack",
-    "test": "mocha --require babel-register test-config/jsdom.js 'src/**/*__test__.js'"
+    "test": "mocha --require babel-register 'src/**/*__test__.js'"
   },
   "repository": {
     "type": "git",

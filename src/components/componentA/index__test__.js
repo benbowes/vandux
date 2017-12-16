@@ -1,14 +1,18 @@
 import { expect } from 'chai';
 import componentA from './index';
 import simulant from 'jsdom-simulant';
+import setupJSDOM from '../../../test-config/jsdom';
 
 let component;
 let componentDom;
 
 describe('componentA', () => {
-  before(() => {
-    component = componentA({ open: false });
-    componentDom = document.querySelector('[data-id="componentA"]');
+  before((done) => {
+    setupJSDOM.then(() => {
+      componentDom = document.querySelector('[data-id="componentA"]');
+      component = componentA({ open: false });
+      done();
+    });
   });
 
   it('should setup with initialState', () => {
