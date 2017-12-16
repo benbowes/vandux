@@ -40,7 +40,4 @@ export default (initialState) => {
   }).connect(['UPDATE_NAME', 'UPDATE_TITLE', 'INCREMENT', 'DECREMENT'], el, render);
 
   addListeners(el, store);
-
-  // Returning here is not required - solely for tests
-  return { el, store };
 };

@@ -3,14 +3,13 @@ import componentA from './index';
 import simulant from 'jsdom-simulant';
 import setupJSDOM from '../../../test-config/jsdom';
 
-let component;
 let componentDom;
 
 describe('componentA', () => {
   before((done) => {
     setupJSDOM.then(() => {
       componentDom = document.querySelector('[data-id="componentA"]');
-      component = componentA({ open: false });
+      componentA({ open: false });
       done();
     });
   });
@@ -22,15 +21,11 @@ describe('componentA', () => {
 
   it('should open selector when first interacted with', () => {
     simulant.fire(componentDom.querySelector('[data-id="selector-button"]'), 'click');
-
-    expect(component.store.getState().open).to.equal(true);
     expect(componentDom.querySelector('[data-id="selector"]').classList.contains('select--open')).to.equal(true);
   });
 
   it('should close selector when interacted with again', () => {
     simulant.fire(componentDom.querySelector('[data-id="selector-button"]'), 'click');
-
-    expect(component.store.getState().open).to.equal(false);
     expect(componentDom.querySelector('[data-id="selector"]').classList.contains('select--open')).to.equal(false);
   });
 });

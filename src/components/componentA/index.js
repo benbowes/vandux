@@ -32,7 +32,4 @@ export default (initialState) => {
   }).connect(['TOGGLE_OPTIONS'], el, render);
 
   addListeners(el, store);
-
-  // Returning here is not required - solely for tests
-  return { el, store };
 };
