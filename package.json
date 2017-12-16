@@ -1,7 +1,7 @@
 {
-  "name": "redux-style-store-vanillajs",
+  "name": "vandux",
   "version": "0.0.1",
-  "description": "ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers",
+  "description": "VanillaJS Redux style pattern for use with standard html",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/benbowes/redux-style-store-vanilla-js.git"
+    "url": "git+https://github.com/benbowes/vandux.git"
   },
   "keywords": [
     "vanilla",
@@ -22,9 +22,9 @@
   "author": "bb@benbowes.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/benbowes/redux-style-store-vanilla-js/issues"
+    "url": "https://github.com/benbowes/vandux/issues"
   },
-  "homepage": "https://github.com/benbowes/redux-style-store-vanilla-js#readme",
+  "homepage": "https://github.com/benbowes/vandux#readme",
   "dependencies": {
     "babel-core": "6.25.x",
     "babel-eslint": "7.2.x",
@@ -38,9 +38,7 @@
     "jsdom-simulant": "^1.1.2",
     "mocha": "^4.0.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
-  },
-  "devDependencies": {
+    "webpack-dev-server": "^2.9.7",
     "eslint": "^4.13.1",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0"
