@@ -5,6 +5,7 @@ import reducer from './reducer';
 function render(state, el, event) {
   const codeBlockEl = el.querySelector('[data-id=code]');
   const lastEventEl = el.querySelector('[data-id=last-event]');
+  const isOpenEl = el.querySelector('[data-id="is-open"]');
   const buttonEl = el.querySelector('[data-id=selector]');
 
   if (state.open) {
@@ -13,6 +14,7 @@ function render(state, el, event) {
     buttonEl.classList.remove('select--open');
   }
 
+  isOpenEl.innerText = state.open;
   lastEventEl.innerText = event;
   codeBlockEl.innerText = JSON.stringify({ ...state, lastEvent: event }, null, 2);
 }
