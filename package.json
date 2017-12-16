@@ -2,10 +2,10 @@
   "name": "vandux",
   "version": "0.0.1",
   "description": "VanillaJS Redux style pattern for use with standard html",
-  "main": "index.js",
+  "main": "dist/vandux.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p",
+    "start": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=production webpack -p",
     "test": "mocha --require babel-register 'src/**/*__test__.js'"
   },
   "repository": {

@@ -5,13 +5,13 @@ import eventLogger from './eventLogger';
 * @param {function} reducer - see the reducers in the components directory
 * @param {object} initialState - whatever you want to intialise your store with.
 */
-export default ({ reducer, initialState }) => {
+export function createStore({ reducer, initialState }) {
   const context = {};
 
   context.makeStore = () => {
     const store = stateMachine();
     const events = {};
-    const isDebug = (window.location.search.indexOf('debug') > -1); // if location has '?debug'
+    const isDebug = (window.location.search.indexOf('vandux-debug') > -1); // if location has '?vandux-debug'
     const doInitialRender = (renderFunction, dom) => {
       const newState = reducer(initialState, { type: 'INIT' });
       store.setState(newState);
@@ -47,4 +47,8 @@ export default ({ reducer, initialState }) => {
   context.createdStore = context.makeStore();
 
   return context.createdStore;
+}
+
+export default {
+  createStore
 };

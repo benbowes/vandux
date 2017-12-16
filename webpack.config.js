@@ -1,30 +1,44 @@
 const { resolve } = require('path');
+const DEV = process.env.NODE_ENV !== 'production';
 
-module.exports = {
-
-  devtool: 'eval',
-
-  devServer: {
-    inline: true,
-    contentBase: resolve(__dirname, 'dist')
-  },
-
-  entry: ['./src/index.js'],
-
-  output: {
-    path: resolve(__dirname, 'dist'),
-    filename: 'index.js'
-  },
-
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
-  }
+const entry = {
+  demo: './src/index.js',
+  vandux: './src/lib/vandux.js'
 };
+const library = 'vandux';
+const moduleConfig = {
+  rules: [{
+    test: /\.js$/,
+    exclude: /node_modules/,
+    use: { loader: 'babel-loader' }
+  }]
+};
+
+module.exports = (DEV)
+  ? {
+    devtool: DEV ? 'eval' : '',
+    devServer: {
+      inline: true,
+      contentBase: resolve(__dirname, 'dist')
+    },
+    entry,
+    module: moduleConfig,
+    output: { filename: './dist/[name].js' }
+  }
+  : [{
+    entry,
+    module: moduleConfig,
+    output: {
+      filename: './dist/[name].js',
+      libraryTarget: 'umd',
+      library
+    }
+  }, {
+    entry,
+    module: moduleConfig,
+    output: {
+      filename: './dist/[name].var.js',
+      libraryTarget: 'var',
+      library
+    }
+  }];

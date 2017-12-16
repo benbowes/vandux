@@ -2,35 +2,36 @@
 <html>
   <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <script src="./index.js"></script>
+    <script src="./demo.js"></script>
     <link rel='stylesheet' type='text/css' href='style.css'>
     <title>Redux style store vanilla js</title>
     <meta name="description" content="A vanilla javascript ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers, for use with already existing dom elements">
 
   </head>
   <body>
-    <a class="github" href="https://github.com/benbowes/redux-style-store-vanilla-js/">Github repo</a>
+    <a class="github" href="https://github.com/benbowes/vandux/">Github repo</a>
 
-    <h1>ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers</h1>
+    <h1>Vandux - A Redux style pattern, for use with standard html and vanilla js.</h1>
     <p>Inspect the logging in the console</p>
 
-    <div class="wrapper" data-vandux-id="componentA">
+    <!-- Component A -->
+    <div class="wrapper" data-vandux_id="componentA">
       <h3>Component A</h3>
       <p>
-        <b>Is open: </b><span data-vandux-id="is-open"></span><br />
-        <b>Last event: </b><span data-vandux-id="last-event"></span><br />
+        <b>Is open: </b><span data-vandux_id="is-open"></span><br />
+        <b>Last event: </b><span data-vandux_id="last-event"></span><br />
       </p>
-
-      <pre><code data-vandux-id="code"></code></pre>
-
-      <div class="select" data-vandux-id="selector">
-        <button class="select__button" data-vandux-id="selector-button">
+      <pre>
+        <code data-vandux_id="code"></code>
+      </pre>
+      <div class="select" data-vandux_id="selector">
+        <button class="select__button" data-vandux_id="selector-button">
           <span>View countries</span>
           <svg class="select__button__icon" x="0px" y="0px" width="11.848px" height="6.338px" viewBox="351.584 2118.292 11.848 6.338">
             <g><path d="M363.311,2118.414c-0.164-0.163-0.429-0.163-0.592,0l-5.205,5.216l-5.215-5.216c-0.163-0.163-0.429-0.163-0.592,0s-0.163,0.429,0,0.592l5.501,5.501c0.082,0.082,0.184,0.123,0.296,0.123c0.103,0,0.215-0.041,0.296-0.123l5.501-5.501C363.474,2118.843,363.474,2118.577,363.311,2118.414L363.311,2118.414z"></path></g>
           </svg>
         </button>
-        <ul class="select__options" data-vandux-id="selector-options">
+        <ul class="select__options" data-vandux_id="selector-options">
           <li class="select__option">Africa</li>
           <li class="select__option">Croatia</li>
           <li class="select__option">France</li>
@@ -38,20 +39,23 @@
       </div>
     </div>
 
-    <div class="wrapper" data-vandux-id="componentB">
+    <!-- Component B -->
+    <div class="wrapper" data-vandux_id="componentB">
       <h3>Component B</h3>
       <p>
-        <b>Last event: </b><span data-vandux-id="last-event"></span><br />
-        <b>Name: </b><span data-vandux-id="name"></span><br/>
-        <b>Title: </b><span data-vandux-id="title"></span><br />
-        <b>Value: </b><span data-vandux-id="value"></span>
+        <b>Last event: </b><span data-vandux_id="last-event"></span><br />
+        <b>Name: </b><span data-vandux_id="name"></span><br/>
+        <b>Title: </b><span data-vandux_id="title"></span><br />
+        <b>Value: </b><span data-vandux_id="value"></span>
       </p>
-      <pre><code data-vandux-id="code"></code></pre>
-      <p><input type="text" data-vandux-id="update-name" placeholder="Alter 'Name'"></input></p>
-      <p><input type="text" data-vandux-id="update-title" placeholder="Alter 'Title'"></input></p>
+      <pre>
+        <code data-vandux_id="code"></code>
+      </pre>
+      <p><input type="text" data-vandux_id="update-name" placeholder="Alter 'Name'"></input></p>
+      <p><input type="text" data-vandux_id="update-title" placeholder="Alter 'Title'"></input></p>
       <p>
-        <button data-vandux-id="button-increment">Add 1 to value</button>
-        <button data-vandux-id="button-decrement">Remove 1 from value</button>
+        <button data-vandux_id="button-increment">Add 1 to value</button>
+        <button data-vandux_id="button-decrement">Remove 1 from value</button>
       </p>
     </div>
 
