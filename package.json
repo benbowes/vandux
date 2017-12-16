@@ -1,7 +1,7 @@
 {
   "name": "vandux",
   "version": "0.0.1",
-  "description": "VanillaJS Redux style pattern for use with standard html",
+  "description": "Vandux - VanillaJS Redux style pattern for use with standard html",
   "main": "dist/vandux.js",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server",
