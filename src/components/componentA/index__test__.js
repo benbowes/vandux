@@ -3,9 +3,9 @@ import componentA from './index';
 import simulant from 'jsdom-simulant';
 import setupJSDOM from '../../../test-config/jsdom';
 
-let componentDom;
-
 describe('componentA', () => {
+  let componentDom;
+
   before((done) => {
     setupJSDOM.then(() => {
       componentDom = document.querySelector('[data-vandux_id="componentA"]');

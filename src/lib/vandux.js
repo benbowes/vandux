@@ -23,9 +23,9 @@ export function createStore({ reducer, initialState }) {
       getState: () => store.state,
       subscribe: (event, listener) => {
         if (!events.hasOwnProperty.call(events, event)) events[event] = [];
-        const index = events[event].push(listener) - 1;
-        return { unsubscribe: () => delete events[event][index] };
+        events[event].push(listener);
       },
+      unsubscribe: (event) => delete events[event],
       connect: (eventsToSubscribe, dom, renderFunction) => {
         eventsToSubscribe.forEach((evt) => {
           context.createdStore.subscribe(evt, (obj) => {
@@ -49,6 +49,4 @@ export function createStore({ reducer, initialState }) {
   return context.createdStore;
 }
 
-export default {
-  createStore
-};
+export default { createStore };
