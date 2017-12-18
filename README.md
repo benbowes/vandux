@@ -24,10 +24,10 @@ or
 
 Then connect your html with a Vandux store. A full example can be found in here: https://github.com/benbowes/vandux/tree/master/src
 
-**Note that Vandux is not intended to be a global store (Might test this soon),** it is intended to be used at a component/module level. Providing your components with the ability to show you what happened when. You can have several vandux stores, all working indepandently.
+**Note that Vandux is not intended to be a global store (Might test this soon),** it is intended to be used at a component/module level. Providing your components with the ability to show you what happened when. You can have several vandux stores, all working independently.
 
 ## Debug mode
-Add the query param `?vandux-debug=true` to your URL to see this kind of output. It will show you what happened when, helping you debug race conditions.
+Add the query param `?vandux-debug=true` to your URL to see this kind of output in your browser console. It will show you what happened when, helping you debug race conditions.
 
 ```js
 wrapper,componentA INIT {open: false}
