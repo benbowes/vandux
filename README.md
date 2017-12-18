@@ -20,8 +20,11 @@ https://codepen.io/benbowes/pen/RxrWBE
 
 Then connect your html with Vandux store. A full example can be found in here: https://github.com/benbowes/vandux/tree/master/src
 
+### Note that vandux is not a global store, it is intended to be used at a component level. You can have several vandux stores.
+
 ```html
-// some html you'd like to "connect" with a vandux store
+// Some html you'd like to "connect" with a vandux store
+
 <div class="wrapper" data-vandux_id="componentA">
   <p>
     <b>Last event: </b><span data-vandux_id="componentA__last-event"></span><br />
@@ -35,6 +38,8 @@ Then connect your html with Vandux store. A full example can be found in here: h
 ```
 
 ```js
+// This is the javascript you use to "connect" your html with a vandux store.
+
 import { createStore } from 'vandux';
 
 function reducer(state = {}, action) {
