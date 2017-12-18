@@ -16,11 +16,17 @@ https://codepen.io/benbowes/pen/RxrWBE
 
 ## Getting started
 
-`npm install -D vandux` or `yarn add vandux`
+`npm install -D vandux`
 
-Then connect your html with Vandux store. A full example can be found in here: https://github.com/benbowes/vandux/tree/master/src
+or
 
-### Note that vandux is not a global store, it is intended to be used at a component level. You can have several vandux stores.
+`yarn add vandux`
+
+Then connect your html with a Vandux store. A full example can be found in here: https://github.com/benbowes/vandux/tree/master/src
+
+### Note that vandux is not intended to be a global store, it is intended to be used at a component/module level. You can have several vandux stores.
+
+## A Vandux code example
 
 ```html
 // Some html you'd like to "connect" with a vandux store
