@@ -25,15 +25,15 @@ Then connect your html with Vandux store. A full example can be found in here: h
 ```html
 // Some html you'd like to "connect" with a vandux store
 
-<div class="wrapper" data-vandux_id="componentA">
+<div class="wrapper" data-vx="componentA">
   <p>
-    <b>Last event: </b><span data-vandux_id="componentA__last-event"></span><br />
-    <b>Name: </b><span data-vandux_id="componentA__name"></span><br/>
+    <b>Last event: </b><span data-vx="componentA__last-event"></span><br />
+    <b>Name: </b><span data-vx="componentA__name"></span><br/>
   </p>
   <pre>
-    <code data-vandux_id="componentA__code"></code>
+    <code data-vx="componentA__code"></code>
   </pre>
-  <p><input type="text" data-vandux_id="componentA__update-name" placeholder="Alter 'Name'"></input></p>
+  <p><input type="text" data-vx="componentA__update-name" placeholder="Alter 'Name'"></input></p>
 </div>
 ```
 
@@ -60,9 +60,9 @@ function reducer(state = {}, action) {
 
 function render(state, el, event) {
   // setup DOM Element references
-  const $codeBlock = el.querySelector('[data-vandux_id=componentA__code]');
-  const $lastEvent = el.querySelector('[data-vandux_id=lcomponentA__ast-event]');
-  const $name = el.querySelector('[data-vandux_id=componentA__name]');
+  const $codeBlock = el.querySelector('[data-vx=componentA__code]');
+  const $lastEvent = el.querySelector('[data-vx=lcomponentA__ast-event]');
+  const $name = el.querySelector('[data-vx=componentA__name]');
 
   // Add data to the DOM
   $lastEvent.innerText = event;
@@ -82,7 +82,7 @@ function render(state, el, event) {
 */
 
 function addListeners(el, store) {
-  el.querySelector('[data-vandux_id=update-name]').addEventListener('keyup', e =>
+  el.querySelector('[data-vx=update-name]').addEventListener('keyup', e =>
     store.publish('UPDATE_NAME', { name: e.target.value }));
 }
 
@@ -101,7 +101,7 @@ function addListeners(el, store) {
 */
 
 export default (initialState) => {
-  const el = document.querySelector('[data-vandux_id="componentA"]');
+  const el = document.querySelector('[data-vx="componentA"]');
 
   const store = createStore({
     reducer,
