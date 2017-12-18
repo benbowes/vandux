@@ -27,9 +27,7 @@ Then connect your html with a Vandux store. A full example can be found in here:
 **Note that Vandux is not intended to be a global store (Might test this soon),** it is intended to be used at a component/module level. Providing your components with the ability to show you what happened when. You can have several vandux stores, all working indepandently.
 
 ## Debug mode
-Kind of a super-lite version of the Redux Dev tools.
-
-Add the query string `?vandux-debug=true` to your location to see this kind of output. Shows you what happenned when, helping you debug race conditions.
+Add the query param `?vandux-debug=true` to your URL to see this kind of output. It will show you what happened when, helping you debug race conditions.
 
 ```js
 wrapper,componentA INIT {open: false}
