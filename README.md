@@ -24,7 +24,7 @@ or
 
 Then connect your html with a Vandux store. A full example can be found in here: https://github.com/benbowes/vandux/tree/master/src
 
-### Note that vandux is not intended to be a global store, it is intended to be used at a component/module level. You can have several vandux stores.
+**Note that vandux is not intended to be a global store (Not tested globally yet), it is intended to be used at a component/module level. You can have several vandux stores, all working indepandently.**
 
 ## A Vandux code example
 
