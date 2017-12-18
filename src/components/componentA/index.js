@@ -3,23 +3,29 @@ import reducer from './reducer';
 
 /**
 * Your render function - perform DOM manipulations in here.
+* Ensure you only do a querySelector once for performance.
 * @param {Any} state - a new version of state that was manipulated by your reducer after an event was fired.
 * @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML component.
 * @param {String} event - the event that was fired e.g. 'TOGGLE_OPTIONS'.
 */
 
+let $codeBlock;
+let $lastEvent;
+let $isOpen;
+let $selector;
+
 function render(state, el, event) {
-  // setup DOM Element references
-  const $codeBlock = el.querySelector('[data-vandux_id=code]');
-  const $lastEvent = el.querySelector('[data-vandux_id=last-event]');
-  const $isOpen = el.querySelector('[data-vandux_id="is-open"]');
-  const $button = el.querySelector('[data-vandux_id=selector]');
+  // setup DOM Element references once
+  $codeBlock = $codeBlock || el.querySelector('[data-vx="componentA__code"]');
+  $lastEvent = $lastEvent || el.querySelector('[data-vx="componentA__last-event"]');
+  $isOpen = $isOpen || el.querySelector('[data-vx="componentA__is-open"]');
+  $selector = $selector || el.querySelector('[data-vx="componentA__selector"]');
 
   // Add data to the DOM
   if (state.open) {
-    $button.classList.add('select--open');
+    $selector.classList.add('select--open');
   } else {
-    $button.classList.remove('select--open');
+    $selector.classList.remove('select--open');
   }
   $isOpen.innerText = state.open;
   $lastEvent.innerText = event;
@@ -38,7 +44,7 @@ function render(state, el, event) {
 */
 
 function addListeners(el, store) {
-  el.querySelector('[data-vandux_id=selector-button]').addEventListener('click', () =>
+  el.querySelector('[data-vx="componentA__selector-button"]').addEventListener('click', () =>
     store.publish('TOGGLE_OPTIONS'));
 }
 
@@ -57,7 +63,7 @@ function addListeners(el, store) {
 */
 
 export default (initialState) => {
-  const el = document.querySelector('[data-vandux_id=componentA]');
+  const el = document.querySelector('[data-vx="componentA"]');
 
   const store = createStore({
     reducer,

@@ -8,13 +8,19 @@ import reducer from './reducer';
 * @param {String} event - the event that was fired e.g. 'TOGGLE_OPTIONS'.
 */
 
+let $codeBlock;
+let $lastEvent;
+let $name;
+let $title;
+let $value;
+
 function render(state, el, event) {
-  // setup DOM Element references
-  const $codeBlock = el.querySelector('[data-vandux_id=code]');
-  const $lastEvent = el.querySelector('[data-vandux_id=last-event]');
-  const $name = el.querySelector('[data-vandux_id=name]');
-  const $title = el.querySelector('[data-vandux_id=title]');
-  const $value = el.querySelector('[data-vandux_id=value]');
+  // setup DOM Element references once
+  $codeBlock = $codeBlock || el.querySelector('[data-vx="componentB__code"]');
+  $lastEvent = $lastEvent || el.querySelector('[data-vx="componentB__last-event"]');
+  $name = $name || el.querySelector('[data-vx="componentB__name"]');
+  $title = $title || el.querySelector('[data-vx="componentB__title"]');
+  $value = $value || el.querySelector('[data-vx="componentB__value"]');
 
   // Add data to the DOM
   $lastEvent.innerText = event;
@@ -36,16 +42,16 @@ function render(state, el, event) {
 */
 
 function addListeners(el, store) {
-  el.querySelector('[data-vandux_id=update-name]').addEventListener('keyup', e =>
+  el.querySelector('[data-vx="componentB__update-name"]').addEventListener('keyup', e =>
     store.publish('UPDATE_NAME', { name: e.target.value }));
 
-  el.querySelector('[data-vandux_id=update-title]').addEventListener('keyup', e =>
+  el.querySelector('[data-vx="componentB__update-title"]').addEventListener('keyup', e =>
     store.publish('UPDATE_TITLE', { title: e.target.value }));
 
-  el.querySelector('[data-vandux_id=button-increment]').addEventListener('click', () =>
+  el.querySelector('[data-vx="componentB__button-increment"]').addEventListener('click', () =>
     store.publish('INCREMENT'));
 
-  el.querySelector('[data-vandux_id=button-decrement]').addEventListener('click', () =>
+  el.querySelector('[data-vx="componentB__button-decrement"]').addEventListener('click', () =>
     store.publish('DECREMENT'));
 }
 
@@ -64,7 +70,7 @@ function addListeners(el, store) {
 */
 
 export default (initialState) => {
-  const el = document.querySelector('[data-vandux_id=componentB]');
+  const el = document.querySelector('[data-vx="componentB"]');
 
   const store = createStore({
     reducer,

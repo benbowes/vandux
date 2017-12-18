@@ -33,7 +33,7 @@ describe('vandux', () => {
   describe('createStore', () => {
     before((done) => {
       setupJSDOM.then(() => {
-        el = document.querySelector('[data-vandux_id=componentA]');
+        el = document.querySelector('[data-vx=componentA]');
         store = createStore({
           reducer,
           initialState
