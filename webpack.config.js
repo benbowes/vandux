@@ -3,7 +3,7 @@ const DEV = process.env.NODE_ENV !== 'production';
 
 const entry = {
   demo: './src/index.js',
-  vandux: './src/lib/vandux.js'
+  vandux: './src/vandux/index.js'
 };
 const library = 'vandux';
 const moduleConfig = {
@@ -23,7 +23,7 @@ module.exports = (DEV)
     },
     entry,
     module: moduleConfig,
-    output: { filename: './dist/[name].js' }
+    output: { filename: './[name].js' }
   }
   : [{
     entry,

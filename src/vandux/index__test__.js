@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import simulant from 'jsdom-simulant';
-import { createStore } from './vandux';
+import { createStore } from './';
 import setupJSDOM from '../../test-config/jsdom';
 
 const reducer = (state = {}, action) => {

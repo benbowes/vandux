@@ -1,6 +1,6 @@
 {
   "name": "vandux",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Vandux - VanillaJS Redux style pattern for use with standard html",
   "main": "dist/vandux.js",
   "scripts": {
@@ -34,13 +34,13 @@
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "deep-freeze": "^0.0.1",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
     "jsdom": "^11.5.1",
     "jsdom-simulant": "^1.1.2",
     "mocha": "^4.0.1",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7",
-    "eslint": "^4.13.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0"
+    "webpack-dev-server": "^2.9.7"
   }
 }

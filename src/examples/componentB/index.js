@@ -1,34 +1,6 @@
-import { createStore } from '../../lib/vandux';
+import { createStore } from '../../vandux/';
 import reducer from './reducer';
-
-/**
-* Your render function - perform DOM manipulations in here.
-* @param {Any} state - a new version of state that was manipulated by your reducer after an event was fired.
-* @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML component.
-* @param {String} event - the event that was fired e.g. 'TOGGLE_OPTIONS'.
-*/
-
-let $codeBlock;
-let $lastEvent;
-let $name;
-let $title;
-let $value;
-
-function render(state, el, event) {
-  // setup DOM Element references once
-  $codeBlock = $codeBlock || el.querySelector('[data-vx="componentB__code"]');
-  $lastEvent = $lastEvent || el.querySelector('[data-vx="componentB__last-event"]');
-  $name = $name || el.querySelector('[data-vx="componentB__name"]');
-  $title = $title || el.querySelector('[data-vx="componentB__title"]');
-  $value = $value || el.querySelector('[data-vx="componentB__value"]');
-
-  // Add data to the DOM
-  $lastEvent.innerText = event;
-  $name.innerText = state.name;
-  $title.innerText = state.title;
-  $value.innerText = state.value;
-  $codeBlock.innerText = JSON.stringify({ ...state, lastEvent: event }, null, 2);
-}
+import render from './render';
 
 /**
 * Add listeners that will publish events here so that the reducer, then the render function will be invoked.
@@ -37,6 +9,7 @@ function render(state, el, event) {
 * @param {Object} store - the store interface created in the export default function...
 * @param {function} store.getState
 * @param {function} store.subscribe
+* @param {function} store.unsubscribe
 * @param {function} store.connect
 * @param {function} store.publish - Currently intention is that you only use this one here
 */

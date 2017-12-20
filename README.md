@@ -89,9 +89,9 @@ function render(state, el, event) {
   const $name = el.querySelector('[data-vx=componentA__name]');
 
   // Add data to the DOM
-  $lastEvent.innerText = event;
-  $name.innerText = state.name;
-  $codeBlock.innerText = JSON.stringify({ ...state, lastEvent: event }, null, 2);
+  $lastEvent.textContent = event;
+  $name.textContent = state.name;
+  $codeBlock.textContent = JSON.stringify({ ...state, lastEvent: event }, null, 2);
 }
 
 /**
@@ -101,6 +101,7 @@ function render(state, el, event) {
 * @param {Object} store - the store interface created in the export default function...
 * @param {function} store.getState
 * @param {function} store.subscribe
+* @param {function} store.unsubscribe
 * @param {function} store.connect
 * @param {function} store.publish - Currently intention is that you only use this one here
 */
