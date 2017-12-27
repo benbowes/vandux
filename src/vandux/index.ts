@@ -1,80 +1,85 @@
 import stateMachine from './stateMachine';
 import eventLogger from './eventLogger';
-import { RenderFunction, SubscriptionFunction, Context } from './types';
+import { RenderFunction, SubscriptionFunction, VanduxInternals, Events } from './types';
 
 /**
-* @param {function} reducer - see the reducers in the components directory
-* @param {object} initialState - whatever you want to intialise your store with.
+* @param {function} reducer - see the reducers in the examples directory. Manipulates the current
+* state and returns a new version of state.
+* @param {object} initialState - whatever state you want to intialise your store with.
 */
 
 export function createStore({ reducer, initialState }) {
 
-  const context: Context = {
-    makeStore: undefined,
-    createdStore: undefined
-  };
+  const vanduxInternals: VanduxInternals = {};
 
-  context.makeStore = () => {
+  vanduxInternals.makeStore = () => {
     const store = stateMachine();
-    const events:object = {};
-    const isDebug:boolean = (window.location.search.indexOf('vandux-debug') > -1); // if location has '?vandux-debug'
+    const events: Events = {};
+    const isDebug: boolean = (window.location.search.indexOf('vandux-debug') > -1); // if location has '?vandux-debug' - true
 
-    const doInitialRender = (renderFunction:RenderFunction, el:Element):void => {
-      const newState = reducer(initialState, { type: 'INIT' });
-      store.setState(newState);
+    const doInitialRender = (renderFunction: RenderFunction, el: Element): void => {
+      const newState = reducer(initialState, { type: 'INIT' }); // Calculate initial state
+      store.setState(newState); // Set store to calculated state
       // Report in browser console if window.location has `?vandux-debug`
       if (isDebug) eventLogger(el, 'INIT', initialState);
-      renderFunction(newState, el, 'INIT', context.createdStore);
+      // Call passed in render function with the calculated state.
+      renderFunction(newState, el, 'INIT', vanduxInternals.createdStore);
     };
 
     return {
-      subscribe: (eventType:string, subscriptionFunc:SubscriptionFunction) => {
+
+      subscribe: (eventType: string, subscriptionFunc: SubscriptionFunction) => {
         // Add a new `eventType` key with an array to pop SubscribeFunction's into, if it doesn't exist
         if (!events.hasOwnProperty.call(events, eventType)) events[eventType] = [];
         // Pop desired SubscribeFunction into `eventType`s array
         events[eventType].push(subscriptionFunc);
       },
 
-      unSubscribe: (eventType:string) => {
+      unSubscribe: (eventType: string) => {
         // Delete given `eventType` off `events`. Kills all `SubscribeFunction`s under `eventType`
         delete events[eventType];
       },
 
-      connect: (eventsTypesToSubscribe:string[], el:Element, renderFunction:RenderFunction) => {
-        eventsTypesToSubscribe.forEach((evtType:string) => {
-          context.createdStore.subscribe(evtType, (state:any) => {
-            if (renderFunction) renderFunction(state, el, evtType, context.createdStore);
+      connect: (eventsTypesToSubscribe: Array<string>, el: Element, renderFunction: RenderFunction) => {
+        // Setup subscriptions for eventTypes to render functions
+        eventsTypesToSubscribe.forEach((evtType: string) => {
+          vanduxInternals.createdStore.subscribe(evtType, (state: any) => {
+            if (isDebug) eventLogger(el, evtType, state);
+            renderFunction(state, el, evtType, vanduxInternals.createdStore);
           });
         });
-
+        // Does first render with `initialState` (`initialState` is inherited from function closure)
         doInitialRender(renderFunction, el);
-
+        // return vandux interface for connected component
         return {
-          publish: context.createdStore.publish,
-          subscribe: context.createdStore.subscribe,
-          unSubscribe: context.createdStore.unSubscribe,
-          getState: context.createdStore.getState
+          publish: vanduxInternals.createdStore.publish,
+          subscribe: vanduxInternals.createdStore.subscribe,
+          unSubscribe: vanduxInternals.createdStore.unSubscribe,
+          getState: vanduxInternals.createdStore.getState
         };
       },
 
-      publish: (eventType:string, payload:any) => {
+      publish: (eventType: string, payload: any) => {
+        // Exit if requested `eventType` does not exist on this store instance
         if (!events.hasOwnProperty.call(events, eventType)) return false;
-
-        const newState = reducer(store.state, { type: eventType, data: payload });
-        store.setState(newState);
-
+        // Generate a new version of state via `reducer` (`reducer` is inherited from function closure)
+        store.setState(
+          reducer(store.state, { type: eventType, data: payload })
+        );
+        // Invoke all functions in `eventType` array
         events[eventType].forEach(subscriptionFunc => {
           subscriptionFunc(store.state);
         });
       },
 
       getState: () => {
+        // Returns current state
         return store.state;
       }
     };
   };
 
-  context.createdStore = context.makeStore();
+  vanduxInternals.createdStore = vanduxInternals.makeStore();
 
-  return context.createdStore;
+  return vanduxInternals.createdStore;
 }
