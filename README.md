@@ -28,24 +28,6 @@ Then connect your html with a Vandux store. A full example can be found in here:
 
 **Note that Vandux is not intended to be a global store (Might test this soon),** it is intended to be used at a component/module level. Providing your components with the ability to show you what happened when. You can have several vandux stores, all working independently.
 
-## Debug mode
-Add the query param `?vandux-debug=true` to your URL to see this kind of output in your browser console. It will show you what happened when, helping you debug race conditions.
-
-```js
-wrapper,componentA INIT {open: false}
-wrapper,componentB INIT {name: "", title: "", value: 20}
-wrapper,componentA TOGGLE_OPTIONS {open: true}
-wrapper,componentA TOGGLE_OPTIONS {open: false}
-wrapper,componentB UPDATE_NAME {name: "a", title: "", value: 20}
-wrapper,componentB UPDATE_NAME {name: "aa", title: "", value: 20}
-wrapper,componentB UPDATE_TITLE {name: "aa", title: "b", value: 20}
-wrapper,componentB UPDATE_TITLE {name: "aa", title: "bb", value: 20}
-wrapper,componentB INCREMENT {name: "aa", title: "bb", value: 21}
-wrapper,componentB INCREMENT {name: "aa", title: "bb", value: 22}
-wrapper,componentB DECREMENT {name: "aa", title: "bb", value: 21}
-```
-Note the first items are the attributes on the html component - so you can identify which component published the event.
-
 ## A Vandux code example
 
 ```html
@@ -103,7 +85,7 @@ function render(state, el, event) {
 * @param {Object} store - the store interface created in the export default function...
 * @param {function} store.getState
 * @param {function} store.subscribe
-* @param {function} store.unsubscribe
+* @param {function} store.unSubscribe
 * @param {function} store.connect
 * @param {function} store.publish - Currently intention is that you only use this one here
 */
@@ -138,3 +120,21 @@ export default (initialState) => {
   addListeners(el, store);
 };
 ```
+
+## Debug mode
+Add the query param `?vandux-debug=true` to your URL to see this kind of output in your browser console. It will show you what happened when, helping you debug race conditions.
+
+```js
+wrapper,componentA INIT {open: false}
+wrapper,componentB INIT {name: "", title: "", value: 20}
+wrapper,componentA TOGGLE_OPTIONS {open: true}
+wrapper,componentA TOGGLE_OPTIONS {open: false}
+wrapper,componentB UPDATE_NAME {name: "a", title: "", value: 20}
+wrapper,componentB UPDATE_NAME {name: "aa", title: "", value: 20}
+wrapper,componentB UPDATE_TITLE {name: "aa", title: "b", value: 20}
+wrapper,componentB UPDATE_TITLE {name: "aa", title: "bb", value: 20}
+wrapper,componentB INCREMENT {name: "aa", title: "bb", value: 21}
+wrapper,componentB INCREMENT {name: "aa", title: "bb", value: 22}
+wrapper,componentB DECREMENT {name: "aa", title: "bb", value: 21}
+```
+Note the first items are the attributes on the html component - so you can identify which component published the event.

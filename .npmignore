@@ -1,0 +1,17 @@
+.DS_Store
+node_modules
+npm-debug.log
+
+test-config
+src
+.babelrc
+.eslintrc
+.gitignore
+.nvmrc
+.travis.yml
+index.html
+ts-config.json
+webpack.config.js
+webpack.config.prebuild.js
+yarn-error.log
+yarn.lock

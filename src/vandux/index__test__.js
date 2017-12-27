@@ -1,6 +1,7 @@
+import 'mocha';
 import { expect } from 'chai';
 import simulant from 'jsdom-simulant';
-import { createStore } from './';
+import { createStore } from '../../dist/vandux';
 import setupJSDOM from '../../test-config/jsdom';
 
 const reducer = (state = {}, action) => {
@@ -47,8 +48,7 @@ describe('vandux', () => {
     it('should setup and return expected interface', () => {
       expect(store.getState).to.be.an('function');
       expect(store.subscribe).to.be.an('function');
-      expect(store.unsubscribe).to.be.an('function');
-      expect(store.connect).to.be.an('function');
+      expect(store.unSubscribe).to.be.an('function');
       expect(store.publish).to.be.an('function');
     });
   });
@@ -79,10 +79,10 @@ describe('vandux', () => {
 
   describe('subscriptions to events can be terminated', () => {
     it('connect`d element publishes an event it is subscribe`d to, and state is updated', () => {
-      store.unsubscribe('SOME_EVENT');
+      store.unSubscribe('SOME_EVENT');
       store.publish('SOME_EVENT', { name: 'My name is Vandux' });
 
-      // Publishing event had no affect as it has been unsubscribed
+      // Publishing event had no affect as it has been unSubscribed
       expect(store.getState()).to.eql({
         open: false,
         name: 'Captain Barnacles'

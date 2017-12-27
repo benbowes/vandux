@@ -1,12 +1,12 @@
 {
   "name": "vandux",
-  "version": "1.0.1",
+  "version": "1.0.2-rc1",
   "description": "Vandux - VanillaJS Redux style pattern for use with standard html",
   "main": "dist/vandux.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server",
-    "build": "NODE_ENV=production webpack -p",
-    "test": "mocha --require babel-register 'src/**/*__test__.js'"
+    "start": "webpack --config webpack.config.prebuild.js && NODE_ENV=development webpack-dev-server",
+    "build": "webpack --config webpack.config.prebuild.js && NODE_ENV=production webpack -p",
+    "test": "webpack --config webpack.config.prebuild.js && mocha --require babel-register 'src/**/*__test__.js'"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/benbowes/vandux#readme",
   "dependencies": {
+    "awesome-typescript-loader": "^3.4.1",
     "babel-core": "6.25.x",
     "babel-eslint": "7.2.x",
     "babel-loader": "7.1.x",
@@ -40,6 +41,7 @@
     "jsdom": "^11.5.1",
     "jsdom-simulant": "^1.1.2",
     "mocha": "^4.0.1",
+    "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
   }

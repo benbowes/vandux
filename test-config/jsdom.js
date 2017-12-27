@@ -3,7 +3,7 @@ const { join } = require('path');
 const INDEX_HTML_PATH = join(__dirname, '../dist/index.html');
 
 // setup DOM from dist/index.html
-module.exports = JSDOM.fromFile(INDEX_HTML_PATH, { includeNodeLocations: true })
+const setupJSDOM = JSDOM.fromFile(INDEX_HTML_PATH, { includeNodeLocations: true })
   .then(dom => {
     // set globals for mocha that make access to document and window
     global.JSDOM_dom = dom;
@@ -11,3 +11,5 @@ module.exports = JSDOM.fromFile(INDEX_HTML_PATH, { includeNodeLocations: true })
     global.document = dom.window.document;
     global.navigator = { userAgent: 'node.js' };
   });
+
+export default setupJSDOM;

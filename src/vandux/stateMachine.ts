@@ -3,9 +3,9 @@
 * A function that takes initialState and returns
 * an interface for altering/getting state
 */
-export default (initialState = {}) => {
+export default (initialState:any = {}) => {
   let state = initialState;
-  const setState = (newState) => {
+  const setState = (newState:any) => {
     state = { ...state, ...newState };
   };
   return {
