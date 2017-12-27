@@ -1,4 +1,5 @@
 // Perform STATE manipulations in here
+
 export default (state = {}, action) => {
   switch (action.type) {
     case 'TOGGLE_OPTIONS':
@@ -8,8 +9,6 @@ export default (state = {}, action) => {
       };
 
     default:
-      return {
-        ...state
-      };
+      return state;
   }
 };

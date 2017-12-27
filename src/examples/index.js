@@ -1,6 +1,6 @@
-import componentA from './examples/componentA';
-import componentB from './examples/componentB';
-import componentC from './examples/componentC';
+import componentA from './componentA';
+import componentB from './componentB';
+import componentC from './componentC';
 
 document.addEventListener('DOMContentLoaded', () => {
   componentA({ open: false });

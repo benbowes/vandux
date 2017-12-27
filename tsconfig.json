@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "es5",
+    "allowJs": true,
+    "inlineSources": true
+  },
+  "include": [
+    "src/vandux/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

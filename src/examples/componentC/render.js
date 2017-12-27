@@ -11,7 +11,6 @@ let $codeBlock;
 let $results;
 let $button;
 
-/* eslint-disable indent no-param-reassign */
 export default function render(state, el, event) {
   $lastEvent = $lastEvent || el.querySelector('[data-vx="componentC__last-event"]');
   $codeBlock = $codeBlock || el.querySelector('[data-vx="componentC__code"]');

@@ -1,16 +1,17 @@
 // Perform STATE manipulations in here
+
 export default (state = {}, action) => {
   switch (action.type) {
     case 'UPDATE_NAME':
       return {
         ...state,
-        ...action.data
+        name: action.data.name
       };
 
     case 'UPDATE_TITLE':
       return {
         ...state,
-        ...action.data
+        title: action.data.title
       };
 
     case 'INCREMENT':
@@ -26,8 +27,6 @@ export default (state = {}, action) => {
       };
 
     default:
-      return {
-        ...state
-      };
+      return state;
   }
 };
