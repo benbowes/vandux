@@ -6,7 +6,9 @@ So you want a Redux solution for components, but you have to deal with server re
 
 Here is an ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers for said situation.
 
-Would I recommend using this over something like React on the server and client? Nope, I would not. This will work well for those cases when you do not have a React server render, but still want SEO compliance.
+Would I recommend using this over something like React on the server and client? Nope, I would not.
+
+What this will work well for, is those cases when you do not have a React server render, still need SEO compliance, and want predictable/testable state management.
 
 ## Demo
 
