@@ -1,6 +1,6 @@
 {
   "name": "vandux",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Vandux - VanillaJS Redux style pattern for use with standard html",
   "main": "dist/vandux.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "url": "https://github.com/benbowes/vandux/issues"
   },
   "homepage": "https://github.com/benbowes/vandux#readme",
-  "dependencies": {
+  "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
     "babel-core": "6.25.x",
     "babel-eslint": "7.2.x",
