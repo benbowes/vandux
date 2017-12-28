@@ -8,7 +8,7 @@ export type RenderFunction = (
   state: State,
   el: Element,
   eventType: string,
-  store: ConnectedStore
+  store: IConnectedStore
 ) => void;
 
 export type PublishFunction = (
@@ -17,10 +17,10 @@ export type PublishFunction = (
 ) => void;
 
 export type ConnectFunction = (
-  eventsTypesToSubscribe: Array<string>,
+  eventsTypesToSubscribe: ReadonlyArray<string>,
   el: Element,
   renderFunction: RenderFunction
-) => ConnectedStore;
+) => IConnectedStore;
 
 export type SubscribeFunction = (
   eventType: string,
@@ -35,14 +35,14 @@ export type Events = {
   [event: string]: Array<SubscriptionFunction>;
 };
 
-export type ConnectedStore = {
+export interface IConnectedStore {
   getState: GetStateFunction,
   subscribe: SubscribeFunction,
   unSubscribe: UnSubscribeFunction,
   publish: PublishFunction
 }
 
-export type VanduxStore = {
+export interface IVanduxStore {
   getState: GetStateFunction,
   subscribe: SubscribeFunction,
   unSubscribe: UnSubscribeFunction,
@@ -50,7 +50,12 @@ export type VanduxStore = {
   connect: ConnectFunction
 }
 
-export type VanduxInternals = {
-  makeStore?: (() => VanduxStore),
-  createdStore?: VanduxStore
+export interface IVanduxInternals {
+  makeStore?: (() => IVanduxStore),
+  createdStore?: IVanduxStore
+}
+
+export interface IStateMachine {
+  setState: (newState: State) => State,
+  state: () => State
 }

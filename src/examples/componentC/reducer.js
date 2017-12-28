@@ -5,7 +5,8 @@ export default (state = {}, action) => {
     case 'MAKE_ASYNC_REQUEST':
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        error: false
       };
 
     case 'ASYNC_REQUEST_FAILED':

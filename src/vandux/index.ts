@@ -1,6 +1,6 @@
 import stateMachine from './stateMachine';
 import eventLogger from './eventLogger';
-import { RenderFunction, SubscriptionFunction, VanduxInternals, Events } from './types';
+import * as TYPES from './types';
 
 /**
 * @param {function} reducer - see the reducers in the examples directory. Manipulates the current
@@ -8,18 +8,19 @@ import { RenderFunction, SubscriptionFunction, VanduxInternals, Events } from '.
 * @param {object} initialState - whatever state you want to intialise your store with.
 */
 
-export function createStore({ reducer, initialState }) {
+export function createStore({ reducer, initialState }): TYPES.IVanduxStore {
+  const vanduxInternals: TYPES.IVanduxInternals = {};
 
-  const vanduxInternals: VanduxInternals = {};
-
-  vanduxInternals.makeStore = () => {
+  vanduxInternals.makeStore = (): TYPES.IVanduxStore => {
     const store = stateMachine();
-    const events: Events = {};
+    const events: TYPES.Events = {};
     const isDebug: boolean = (window.location.search.indexOf('vandux-debug') > -1); // if location has '?vandux-debug' - true
 
-    const doInitialRender = (renderFunction: RenderFunction, el: Element): void => {
-      const newState = reducer(initialState, { type: 'INIT' }); // Calculate initial state
-      store.setState(newState); // Set store to calculated state
+    const doInitialRender = (renderFunction: TYPES.RenderFunction, el: Element): void => {
+      // Calculate initial state
+      const newState = reducer(initialState, { type: 'INIT' });
+      // Set store to calculated state
+      store.setState(newState);
       // Report in browser console if window.location has `?vandux-debug`
       if (isDebug) eventLogger(el, 'INIT', initialState);
       // Call passed in render function with the calculated state.
@@ -27,23 +28,36 @@ export function createStore({ reducer, initialState }) {
     };
 
     return {
-
-      subscribe: (eventType: string, subscriptionFunc: SubscriptionFunction) => {
+      subscribe: (eventType: string, subscriptionFunc: TYPES.SubscriptionFunction): void => {
         // Add a new `eventType` key with an array to pop SubscribeFunction's into, if it doesn't exist
         if (!events.hasOwnProperty.call(events, eventType)) events[eventType] = [];
         // Pop desired SubscribeFunction into `eventType`s array
         events[eventType].push(subscriptionFunc);
       },
 
-      unSubscribe: (eventType: string) => {
+      unSubscribe: (eventType: string): void => {
         // Delete given `eventType` off `events`. Kills all `SubscribeFunction`s under `eventType`
         delete events[eventType];
       },
 
-      connect: (eventsTypesToSubscribe: Array<string>, el: Element, renderFunction: RenderFunction) => {
-        // Setup subscriptions for eventTypes to render functions
-        eventsTypesToSubscribe.forEach((evtType: string) => {
-          vanduxInternals.createdStore.subscribe(evtType, (state: any) => {
+      connect: (eventsTypesToSubscribe: ReadonlyArray<string>, el: Element, renderFunction: TYPES.RenderFunction): TYPES.IConnectedStore => {
+        // Setup subscription relationships for eventTypes to render functions
+        eventsTypesToSubscribe.forEach((evtType: string): void => {
+          /**
+          * "vanduxInternals.createdStore.subscribe" creates a subscription for each `eventsTypesToSubscribe` eventType and creates a 
+          * function of type `TYPES.SubscriptionFunction` to call, when said eventType is fired via "vanduxInternals.createdStore.publish",
+          * passing in the new state object after processing through a reducer...
+          */
+          vanduxInternals.createdStore.subscribe(evtType, (state: TYPES.State): void => {
+            /**
+             * `eventLogger()` is invoked when `isDebug` is true, prints what happened and when in the browser console.
+             * `renderFunction()` called during `vanduxInternals.createdStore.publish`.
+             *
+             * @param {Any} state - whatever the new state is as per calculation via your reducer
+             * @param {HTMLDOMElement} el - a dom reference that marks the bounds of your component
+             * @param {string} evtType - the event that was fired
+             * @param {IVanduxStore} vanduxInternals.createdStore - a reference to the store interface
+            */
             if (isDebug) eventLogger(el, evtType, state);
             renderFunction(state, el, evtType, vanduxInternals.createdStore);
           });
@@ -59,7 +73,7 @@ export function createStore({ reducer, initialState }) {
         };
       },
 
-      publish: (eventType: string, payload: any) => {
+      publish: (eventType: string, payload: any): void | false => {
         // Exit if requested `eventType` does not exist on this store instance
         if (!events.hasOwnProperty.call(events, eventType)) return false;
         // Generate a new version of state via `reducer` (`reducer` is inherited from function closure)
@@ -67,12 +81,12 @@ export function createStore({ reducer, initialState }) {
           reducer(store.state, { type: eventType, data: payload })
         );
         // Invoke all functions in `eventType` array
-        events[eventType].forEach(subscriptionFunc => {
+        events[eventType].forEach((subscriptionFunc): void => {
           subscriptionFunc(store.state);
         });
       },
 
-      getState: () => {
+      getState: (): TYPES.State => {
         // Returns current state
         return store.state;
       }
