@@ -21,7 +21,7 @@ export function createStore({ reducer, initialState }): TYPES.IVanduxStore {
       const newState = reducer(initialState, { type: 'INIT' });
       // Set store to calculated state
       store.setState(newState);
-      // Report in browser console if window.location has `?vandux-debug`
+      // Report events in browser console if window.location has `?vandux-debug`
       if (isDebug) eventLogger(el, 'INIT', initialState);
       // Call passed in render function with the calculated state.
       renderFunction(newState, el, 'INIT', vanduxInternals.createdStore);
@@ -36,7 +36,7 @@ export function createStore({ reducer, initialState }): TYPES.IVanduxStore {
       },
 
       unSubscribe: (eventType: string): void => {
-        // Delete given `eventType` off `events`. Kills all `SubscribeFunction`s under `eventType`
+        // Delete given `eventType` off of `events` object. Kills all `SubscribeFunction`s under `eventType`
         delete events[eventType];
       },
 
@@ -44,21 +44,18 @@ export function createStore({ reducer, initialState }): TYPES.IVanduxStore {
         // Setup subscription relationships for eventTypes to render functions
         eventsTypesToSubscribe.forEach((evtType: string): void => {
           /**
-          * "vanduxInternals.createdStore.subscribe" creates a subscription for each `eventsTypesToSubscribe` eventType and creates a 
+          * "vanduxInternals.createdStore.subscribe" creates a subscription for each `eventsTypesToSubscribe` eventType, and creates a 
           * function of type `TYPES.SubscriptionFunction` to call, when said eventType is fired via "vanduxInternals.createdStore.publish",
-          * passing in the new state object after processing through a reducer...
-          */
+          * new state object is passed into render function after processing published event payload with state through a reducer...*/
           vanduxInternals.createdStore.subscribe(evtType, (state: TYPES.State): void => {
-            /**
-             * `eventLogger()` is invoked when `isDebug` is true, prints what happened and when in the browser console.
-             * `renderFunction()` called during `vanduxInternals.createdStore.publish`.
-             *
+            // `eventLogger()` is invoked when `isDebug` is true. Prints what happened, when, in the browser console.
+             if (isDebug) eventLogger(el, evtType, state);
+             /**
+             * `renderFunction()` is called during `vanduxInternals.createdStore.publish`.
              * @param {Any} state - whatever the new state is as per calculation via your reducer
              * @param {HTMLDOMElement} el - a dom reference that marks the bounds of your component
              * @param {string} evtType - the event that was fired
-             * @param {IVanduxStore} vanduxInternals.createdStore - a reference to the store interface
-            */
-            if (isDebug) eventLogger(el, evtType, state);
+             * @param {IVanduxStore} vanduxInternals.createdStore - a reference to the store interface*/
             renderFunction(state, el, evtType, vanduxInternals.createdStore);
           });
         });
