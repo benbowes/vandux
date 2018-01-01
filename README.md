@@ -47,6 +47,18 @@ Then connect your html with a Vandux store. A full example can be found in here:
 </div>
 ```
 
+Your entry file
+```js
+import componentA from './componentA';
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Pass in initial state
+  componentA({ name: '' });
+});
+```
+
+componentA.js - see the `export default` function, where initial state is passed in to the component. When the component is connected it will render with it's initial state automatically with an `INIT` action.
+
 ```js
 // This is the javascript you use to "connect" your html with a vandux store.
 
@@ -55,9 +67,12 @@ import { createStore } from 'vandux';
 function reducer(state = {}, action) {
   switch (action.type) {
     case 'UPDATE_NAME':
-      return { ...state, ...action.data };
+      return {
+        ...state,
+        name: action.data.name
+      };
     default:
-      return { ...state };
+      return state;
   }
 }
 
@@ -68,11 +83,15 @@ function reducer(state = {}, action) {
 * @param {String} event - the event that was fired e.g. 'TOGGLE_OPTIONS'.
 */
 
+let $codeBlock;
+let $lastEvent;
+let $name;
+
 function render(state, el, event) {
-  // setup DOM Element references
-  const $codeBlock = el.querySelector('[data-vx=componentA__code]');
-  const $lastEvent = el.querySelector('[data-vx=lcomponentA__ast-event]');
-  const $name = el.querySelector('[data-vx=componentA__name]');
+  // setup DOM Element references once
+  $codeBlock = $codeBlock || el.querySelector('[data-vx=componentA__code]');
+  $lastEvent = $lastEvent || el.querySelector('[data-vx=componentA__last-event]');
+  $name = $name || el.querySelector('[data-vx=componentA__name]');
 
   // Add data to the DOM
   $lastEvent.textContent = event;
@@ -99,8 +118,8 @@ function addListeners(el, store) {
 
 /**
 * Component setup function.
-* You'll need to add the events you'd like to sunscribe to in the `connect` function,
-* the elemnent that is the container for your html component,
+* You'll need to add the events you'd like to subscribe to in the `connect` function,
+* the element that is the container for your html component,
 * and the render function that will be invoked when your events are published.
 * @param {Any} initialState - the state you'd like your component to have when it boots up.
 * @param {function} reducer - manipulates state in a immutable Redux-style way.
@@ -127,16 +146,9 @@ export default (initialState) => {
 Add the query param `?vandux-debug=true` to your URL to see this kind of output in your browser console. It will show you what happened when, helping you debug race conditions.
 
 ```js
-wrapper,componentA INIT {open: false}
-wrapper,componentB INIT {name: "", title: "", value: 20}
-wrapper,componentA TOGGLE_OPTIONS {open: true}
-wrapper,componentA TOGGLE_OPTIONS {open: false}
-wrapper,componentB UPDATE_NAME {name: "a", title: "", value: 20}
-wrapper,componentB UPDATE_NAME {name: "aa", title: "", value: 20}
-wrapper,componentB UPDATE_TITLE {name: "aa", title: "b", value: 20}
-wrapper,componentB UPDATE_TITLE {name: "aa", title: "bb", value: 20}
-wrapper,componentB INCREMENT {name: "aa", title: "bb", value: 21}
-wrapper,componentB INCREMENT {name: "aa", title: "bb", value: 22}
-wrapper,componentB DECREMENT {name: "aa", title: "bb", value: 21}
+wrapper,componentB INIT {name: ""}
+wrapper,componentB UPDATE_NAME {name: "a"}
+wrapper,componentB UPDATE_NAME {name: "aa"}
+wrapper,componentB UPDATE_NAME {name: "aaa"}
 ```
 Note the first items are the attributes on the html component - so you can identify which component published the event.
