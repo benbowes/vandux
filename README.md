@@ -26,14 +26,14 @@ or
 
 `yarn add vandux`
 
-Then connect your html with a Vandux store. A full example can be found in here: https://github.com/benbowes/vandux/tree/master/src
+Then connect your html with a Vandux store. A full example can be found in here: https://github.com/benbowes/vandux/tree/master/src/examples
 
 **Note that Vandux is not intended to be a global store (Might test this soon),** it is intended to be used at a component/module level. Providing your components with the ability to show you what happened when. You can have several vandux stores, all working independently.
 
 ## A Vandux code example
 
 ```html
-// Some html you'd like to "connect" with a vandux store
+<!-- Some html you'd like to "connect" with a vandux store -->
 
 <div class="wrapper" data-vx="componentA">
   <p>
@@ -47,20 +47,28 @@ Then connect your html with a Vandux store. A full example can be found in here:
 </div>
 ```
 
-Your entry file
 ```js
+/** Your entry file */
 import componentA from './componentA';
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Pass in initial state
-  componentA({ name: '' });
+  componentA({ name: '' }); // Pass in initial state
 });
 ```
 
 componentA.js - see the `export default` function, where initial state is passed in to the component. When the component is connected it will render with it's initial state automatically with an `INIT` action.
 
 ```js
-// This is the javascript you use to "connect" your html with a vandux store.
+/**
+* This is the javascript you use to "connect" your html with a vandux store.
+* Although I have included all functions in one file. You split these functions out into seperate files...
+* @example
+
+* - componentA/
+*   - reducer.js
+*   - render.js
+*   - index.js
+*/
 
 import { createStore } from 'vandux';
 
