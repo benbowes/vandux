@@ -41,6 +41,14 @@ Then connect your html with a Vandux store. A full example can be found in here:
 </div>
 ```
 
+Assuming this folder structure for componentA ...
+```
+- componentA/
+  - reducer.js
+  - render.js
+  - index.js
+```
+
 #### Your entry file
 
 ```js
@@ -49,14 +57,6 @@ import componentA from './componentA';
 document.addEventListener('DOMContentLoaded', () => {
   componentA({ name: '', title: '' }); // Pass in initial state
 });
-```
-
-Assuming this folder structure for componentA...
-```
-- componentA/
-  - reducer.js
-  - render.js
-  - index.js
 ```
 
 #### componentA/index.js
