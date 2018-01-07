@@ -36,14 +36,11 @@ Then connect your html with a Vandux store. A full example can be found in here:
 <!-- Some html you'd like to "connect" with a vandux store -->
 
 <div class="wrapper" data-vx="componentA">
-  <p>
-    <b>Last event: </b><span data-vx="componentA__last-event"></span><br />
-    <b>Name: </b><span data-vx="componentA__name"></span><br/>
-  </p>
-  <pre>
-    <code data-vx="componentA__code"></code>
-  </pre>
+  <p>Name: <span data-vx="componentA__name"></p>
+  <p>Title: <span data-vx="componentA__title"></p>
+
   <p><input type="text" data-vx="componentA__update-name" placeholder="Alter 'Name'"></input></p>
+  <p><input type="text" data-vx="componentA__update-title" placeholder="Alter 'Title'"></input></p>
 </div>
 ```
 
@@ -52,111 +49,94 @@ Then connect your html with a Vandux store. A full example can be found in here:
 import componentA from './componentA';
 
 document.addEventListener('DOMContentLoaded', () => {
-  componentA({ name: '' }); // Pass in initial state
+  componentA({ name: '', title: '' }); // Pass in initial state
 });
 ```
 
-componentA.js - see the `export default` function, where initial state is passed in to the component. When the component is connected it will render with it's initial state automatically with an `INIT` action.
+#### Assuming this folder structure:
+```
+- componentA/
+  - reducer.js
+  - render.js
+  - index.js
+```
+
+componentA/index.js
 
 ```js
 /**
-* This is the javascript you use to "connect" your html with a vandux store.
-* Although I have included all functions in one file. You split these functions out into seperate files...
-* @example
-
-* - componentA/
-*   - reducer.js
-*   - render.js
-*   - index.js
+* Component setup function. Connects the html component with the store.
+* Initial state is passed in to the component. When the component * is connected it will render with it's initial state automatically with an `INIT` action.
 */
-
 import { createStore } from 'vandux';
+import reducer from './reducer';
+import render from './render';
 
-function reducer(state = {}, action) {
-  switch (action.type) {
-    case 'UPDATE_NAME':
-      return {
-        ...state,
-        name: action.data.name
-      };
-    default:
-      return state;
-  }
-}
 
-/**
-* Your render function - perform DOM manipulations in here.
-* @param {Any} state - a new version of state that was manipulated by your reducer after an event was fired.
-* @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML component.
-* @param {String} event - the event that was fired e.g. 'TOGGLE_OPTIONS'.
-*/
-
-let $codeBlock;
-let $lastEvent;
-let $name;
-
-function render(state, el, event) {
-  // setup DOM Element references once
-  $codeBlock = $codeBlock || el.querySelector('[data-vx=componentA__code]');
-  $lastEvent = $lastEvent || el.querySelector('[data-vx=componentA__last-event]');
-  $name = $name || el.querySelector('[data-vx=componentA__name]');
-
-  // Add data to the DOM
-  $lastEvent.textContent = event;
-  $name.textContent = state.name;
-  $codeBlock.textContent = JSON.stringify({ ...state, lastEvent: event }, null, 2);
-}
-
-/**
-* Add listeners that will publish events here so that the reducer, then the render function will be invoked.
-* @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML
-* component. this DOM reference is passed to the render function for convenience.
-* @param {Object} store - the store interface created in the export default function...
-* @param {function} store.getState
-* @param {function} store.subscribe
-* @param {function} store.unSubscribe
-* @param {function} store.connect
-* @param {function} store.publish - Currently intention is that you only use this one here
-*/
-
+// addListeners - create relationship between event listeners and the store
 function addListeners(el, store) {
   el.querySelector('[data-vx=update-name]').addEventListener('keyup', e =>
     store.publish('UPDATE_NAME', { name: e.target.value }));
+
+  el.querySelector('[data-vx=update-title]').addEventListener('keyup', e =>
+    store.publish('UPDATE_TITLE', { name: e.target.value }));
 }
 
-/**
-* Component setup function.
-* You'll need to add the events you'd like to subscribe to in the `connect` function,
-* the element that is the container for your html component,
-* and the render function that will be invoked when your events are published.
-* @param {Any} initialState - the state you'd like your component to have when it boots up.
-* @param {function} reducer - manipulates state in a immutable Redux-style way.
-* @param {function} connect - creates a subscription to events this component cares about
-* and triggers a render when one is fired.
-* @param {function} render - a function that will be called when a subscribed-to event is published.
-* @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML
-* component. this DOM reference is passed to the render function for convenience.
-*/
-
+// Connect HTML component with store
 export default (initialState) => {
   const el = document.querySelector('[data-vx="componentA"]');
 
   const store = createStore({
     reducer,
     initialState
-  }).connect(['UPDATE_NAME'], el, render);
+  }).connect(['UPDATE_NAME', 'UPDATE_TITLE'], el, render);
 
   addListeners(el, store);
 };
+```
+
+componentA/reducer.js
+
+```js
+export default function reducer(state = {}, action) {
+  switch (action.type) {
+
+    case 'UPDATE_NAME':
+      return { ...state, name: action.data.name };
+
+    case 'UPDATE_TITLE':
+      return { ...state, name: action.data.title };
+
+    default:
+      return state;
+  }
+}
+```
+
+componentA/render.js
+
+```js
+let $name;
+let $title;
+
+// render function - perform DOM manipulations in here.
+export default function render(state, el, event) {
+  $name = $name || el.querySelector('[data-vx=componentA__name]');
+  $title = $title || el.querySelector('[data-vx=componentA__title]');
+
+  // Add data to the DOM
+  $title.textContent = state.title;
+  $name.textContent = state.name;
+}
 ```
 
 ## Debug mode
 Add the query param `?vandux-debug=true` to your URL to see this kind of output in your browser console. It will show you what happened when, helping you debug race conditions.
 
 ```js
-wrapper,componentB INIT {name: ""}
-wrapper,componentB UPDATE_NAME {name: "a"}
-wrapper,componentB UPDATE_NAME {name: "aa"}
-wrapper,componentB UPDATE_NAME {name: "aaa"}
+wrapper,componentB INIT {name: "", title: ""}
+wrapper,componentB UPDATE_NAME {name: "a", title: ""}}
+wrapper,componentB UPDATE_NAME {name: "aa", title: ""}
+wrapper,componentB UPDATE_NAME {name: "aaa", title: ""}
 ```
 Note the first items are the attributes on the html component - so you can identify which component published the event.
