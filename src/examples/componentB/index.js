@@ -46,10 +46,12 @@ function addListeners(el, store) {
 export default (initialState) => {
   const el = document.querySelector('[data-vx="componentB"]');
 
-  const store = createStore({
-    reducer,
-    initialState
-  }).connect(['UPDATE_NAME', 'UPDATE_TITLE', 'INCREMENT', 'DECREMENT'], el, render);
+  const store = createStore({ reducer, initialState }).connect([
+    'UPDATE_NAME',
+    'UPDATE_TITLE',
+    'INCREMENT',
+    'DECREMENT'
+  ], el, render);
 
   addListeners(el, store);
 };

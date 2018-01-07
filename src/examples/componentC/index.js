@@ -39,10 +39,12 @@ function addListeners(el, store) {
 
 export default (initialState) => {
   const el = document.querySelector('[data-vx="componentC"]');
-  const store = createStore({
-    reducer,
-    initialState
-  }).connect(['MAKE_ASYNC_REQUEST', 'RECIEVE_ASYNC_REQUEST', 'ASYNC_REQUEST_FAILED'], el, render);
+
+  const store = createStore({ reducer, initialState }).connect([
+    'MAKE_ASYNC_REQUEST',
+    'RECIEVE_ASYNC_REQUEST',
+    'ASYNC_REQUEST_FAILED'
+  ], el, render);
 
   addListeners(el, store);
 };

@@ -20,20 +20,17 @@ https://codepen.io/benbowes/pen/RxrWBE
 
 ## Getting started
 
-`npm install -D vandux`
-
-or
-
-`yarn add vandux`
+`npm install -D vandux` or `yarn add vandux`
 
 Then connect your html with a Vandux store. A full example can be found in here: https://github.com/benbowes/vandux/tree/master/src/examples
 
-**Note that Vandux is not intended to be a global store (Might test this soon),** it is intended to be used at a component/module level. Providing your components with the ability to show you what happened when. You can have several vandux stores, all working independently.
+**Note that Vandux is not currently intended to be a global store**, it is intended to be used at a component/module level. Providing your components with the ability to show you what happened when. You can have several Vandux stores, all working independently.
 
 ## A Vandux code example
 
+#### Some html you'd like to "connect" with a Vandux store
+
 ```html
-<!-- Some html you'd like to "connect" with a vandux store -->
 
 <div class="wrapper" data-vx="componentA">
   <p>Name: <span data-vx="componentA__name"></p>
@@ -44,8 +41,9 @@ Then connect your html with a Vandux store. A full example can be found in here:
 </div>
 ```
 
+#### Your entry file
+
 ```js
-/** Your entry file */
 import componentA from './componentA';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 ```
 
-#### Assuming this folder structure:
+Assuming this folder structure for componentA...
 ```
 - componentA/
   - reducer.js
@@ -61,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   - index.js
 ```
 
-componentA/index.js
+#### componentA/index.js
 
 ```js
 /**
@@ -73,7 +71,7 @@ import reducer from './reducer';
 import render from './render';
 
 
-// addListeners - create relationship between event listeners and the store
+// Creates a relationship between event listeners and the store
 function addListeners(el, store) {
   el.querySelector('[data-vx=update-name]').addEventListener('keyup', e =>
     store.publish('UPDATE_NAME', { name: e.target.value }));
@@ -86,16 +84,16 @@ function addListeners(el, store) {
 export default (initialState) => {
   const el = document.querySelector('[data-vx="componentA"]');
 
-  const store = createStore({
-    reducer,
-    initialState
-  }).connect(['UPDATE_NAME', 'UPDATE_TITLE'], el, render);
+  const store = createStore({ reducer, initialState }).connect([
+    'UPDATE_NAME',
+    'UPDATE_TITLE'
+  ], el, render);
 
   addListeners(el, store);
 };
 ```
 
-componentA/reducer.js
+#### componentA/reducer.js
 
 ```js
 export default function reducer(state = {}, action) {
@@ -105,15 +103,14 @@ export default function reducer(state = {}, action) {
       return { ...state, name: action.data.name };
 
     case 'UPDATE_TITLE':
-      return { ...state, name: action.data.title };
+      return { ...state, title: action.data.title };
 
-    default:
-      return state;
+    default: return state;
   }
 }
 ```
 
-componentA/render.js
+#### componentA/render.js
 
 ```js
 let $name;
@@ -139,4 +136,4 @@ wrapper,componentB UPDATE_NAME {name: "a", title: ""}}
 wrapper,componentB UPDATE_NAME {name: "aa", title: ""}
 wrapper,componentB UPDATE_NAME {name: "aaa", title: ""}
 ```
-Note the first items are the attributes on the html component - so you can identify which component published the event.
+Note the first items are the values of the attributes on the html component - so you can identify which component published the event.

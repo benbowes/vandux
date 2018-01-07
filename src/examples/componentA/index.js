@@ -37,10 +37,9 @@ function addListeners(el, store) {
 export default (initialState = {}) => {
   const el = document.querySelector('[data-vx="componentA"]');
 
-  const store = createStore({
-    reducer,
-    initialState
-  }).connect(['TOGGLE_OPTIONS'], el, render);
+  const store = createStore({ reducer, initialState }).connect([
+    'TOGGLE_OPTIONS'
+  ], el, render);
 
   addListeners(el, store);
 };
