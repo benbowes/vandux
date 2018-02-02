@@ -2,8 +2,9 @@ const mockResponse = ['Lorem ipsum', 'Dolor amet', 'Eventis', 'Seguro'];
 let counter = 0;
 
 /**
-* Mock out an async request. Pass then fail, then pass, then fail...
-*/
+  * Mock out an async request. Pass then fail, then pass, then fail...
+  */
+
 export default function asyncRequest(store) {
   counter += 1;
 

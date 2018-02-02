@@ -73,10 +73,10 @@ import render from './render';
 
 // Creates a relationship between event listeners and the store
 function addListeners(el, store) {
-  el.querySelector('[data-vx=update-name]').addEventListener('keyup', e =>
+  el.querySelector('[data-vx=componentA__update-name]').addEventListener('keyup', e =>
     store.publish('UPDATE_NAME', { name: e.target.value }));
 
-  el.querySelector('[data-vx=update-title]').addEventListener('keyup', e =>
+  el.querySelector('[data-vx=componentA__update-title]').addEventListener('keyup', e =>
     store.publish('UPDATE_TITLE', { name: e.target.value }));
 }
 

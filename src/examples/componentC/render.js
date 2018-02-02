@@ -1,10 +1,9 @@
-
 /**
-* Your render function - perform DOM manipulations in here.
-* @param {Any} state - a new version of state that was manipulated by your reducer after an event was fired.
-* @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML component.
-* @param {String} event - the event that was fired e.g. 'TOGGLE_OPTIONS'.
-*/
+  * Your render function - perform DOM manipulations in here.
+  * @param {Any} state - a new version of state that was manipulated by your reducer after an event was fired.
+  * @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML component.
+  * @param {String} event - the event that was fired e.g. 'TOGGLE_OPTIONS'.
+  */
 
 let $lastEvent;
 let $codeBlock;
@@ -25,4 +24,3 @@ export default function render(state, el, event) {
 
   $button.setAttribute('class', (state.isLoading ? 'is-loading' : ''));
 }
-/* eslint-enable indent no-param-reassign */

@@ -1,6 +1,6 @@
 {
   "name": "vandux",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Vandux - VanillaJS Redux style pattern for use with standard html",
   "main": "dist/vandux.js",
   "scripts": {

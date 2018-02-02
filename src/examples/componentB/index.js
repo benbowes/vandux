@@ -3,17 +3,17 @@ import reducer from './reducer';
 import render from './render';
 
 /**
-* Add listeners that will publish events here so that the reducer, then the
-* render function will be invoked.
-* @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML
-* component. this DOM reference is passed to the render function for convenience.
-* @param {Object} store - the store interface created in the export default function...
-* @param {function} store.getState
-* @param {function} store.subscribe
-* @param {function} store.unSubscribe
-* @param {function} store.connect
-* @param {function} store.publish - Currently intention is that you only use this one here
-*/
+  * Add listeners that will publish events here so that the reducer, then the
+  * render function will be invoked.
+  * @param {HTMLDOMElement} el - a DOM reference that should be the container for your HTML
+  * component. this DOM reference is passed to the render function for convenience.
+  * @param {Object} store - the store interface created in the export default function...
+  * @param {function} store.getState
+  * @param {function} store.subscribe
+  * @param {function} store.unSubscribe
+  * @param {function} store.connect
+  * @param {function} store.publish - Currently intention is that you only use this one here
+  */
 
 function addListeners(el, store) {
   el.querySelector('[data-vx="componentB__update-name"]').addEventListener('keyup', e =>
