@@ -2,7 +2,7 @@
 
 ![Build status](https://api.travis-ci.org/benbowes/redux-style-store-vanilla-js.svg?branch=master)
 
-**So you want a Redux solution for components, but you have server rendered DOM that you have no control over?**
+**So you want a Redux solution for components, but have server rendered DOM you have no control over?**
 
 Here is an ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers for said situation.
 
