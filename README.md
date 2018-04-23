@@ -31,7 +31,6 @@ Then connect your html with a Vandux store. A full example can be found in here:
 #### Some html you'd like to "connect" with a Vandux store
 
 ```html
-
 <div class="wrapper" data-vx="componentA">
   <p>Name: <span data-vx="componentA__name"></p>
   <p>Title: <span data-vx="componentA__title"></p>
@@ -62,16 +61,17 @@ document.addEventListener('DOMContentLoaded', () => {
 #### componentA/index.js
 
 ```js
-/**
-* Component setup function. Connects the html component with the store.
-* Initial state is passed in to the component. When the component * is connected it will render with it's initial state automatically with an `INIT` action.
-*/
+// Component setup function. Connects the html component with the store.
+// Initial state is passed in to the component. When the component is connected 
+// it will render with it's initial state automatically with an `INIT` action.
+
 import { createStore } from 'vandux';
 import reducer from './reducer';
 import render from './render';
 
 
 // Creates a relationship between event listeners and the store
+
 function addListeners(el, store) {
   el.querySelector('[data-vx=componentA__update-name]').addEventListener('keyup', e =>
     store.publish('UPDATE_NAME', { name: e.target.value }));
@@ -81,6 +81,7 @@ function addListeners(el, store) {
 }
 
 // Connect HTML component with store
+
 export default (initialState) => {
   const el = document.querySelector('[data-vx="componentA"]');
 
@@ -116,12 +117,14 @@ export default function reducer(state = {}, action) {
 let $name;
 let $title;
 
-// render function - perform DOM manipulations in here.
+// Render function - perform DOM manipulations in here.
+
 export default function render(state, el, event) {
   $name = $name || el.querySelector('[data-vx=componentA__name]');
   $title = $title || el.querySelector('[data-vx=componentA__title]');
 
   // Add data to the DOM
+
   $title.textContent = state.title;
   $name.textContent = state.name;
 }
