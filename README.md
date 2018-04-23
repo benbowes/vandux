@@ -137,3 +137,9 @@ wrapper,componentB UPDATE_NAME {name: "aa", title: ""}
 wrapper,componentB UPDATE_NAME {name: "aaa", title: ""}
 ```
 Note the first items are the values of the attributes on the html component - so you can identify which component published the event.
+
+## Thoughts on security
+
+If you are planning to use this with `innerHTML`, be sure to use this https://www.npmjs.com/package/sanitize-html or something like it.
+
+Happy coding!
