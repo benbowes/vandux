@@ -2,13 +2,13 @@
 
 ![Build status](https://api.travis-ci.org/benbowes/redux-style-store-vanilla-js.svg?branch=master)
 
-So you want a Redux solution for components, but you have to deal with server rendered DOM that some Headed CMS spat out?
+So you want a Redux solution for components, but you have to deal with server rendered DOM you have no control over?
 
 Here is an ES6 Pub/Sub pattern with a State Machine pattern combined with Reducers for said situation.
 
 Would I recommend using this over something like React on the server and client? Nope, I would not.
 
-What this will work well for, is those cases when you do not have a React server render, still need SEO compliance, and want predictable/testable state management.
+What this will work well for, is those cases when you do not have a universal render, still need SEO compliance, and want predictable/testable state management.
 
 ## Demo
 
@@ -140,6 +140,6 @@ Note the first items are the values of the attributes on the html component - so
 
 ## Thoughts on security
 
-If you are planning to use this with `innerHTML`, be sure to use this https://www.npmjs.com/package/sanitize-html or something like it.
+If you are planning to use this with `innerHTML`, be sure to use something like this to sanitise your html https://www.npmjs.com/package/sanitize-html.
 
 Happy coding!
