@@ -1,0 +1,18 @@
+language: node_js
+
+node_js:
+  - "8.9.1"
+
+cache:
+  yarn: true
+
+script:
+  - yarn test
+  - yarn build
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  on:
+    branch: master

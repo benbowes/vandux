@@ -1,0 +1,130 @@
+* {
+  box-sizing: border-box;
+}
+
+:focus {
+  outline: 0;
+}
+
+body {
+  font-size: 16px;
+  font-family: sans-serif;
+  margin: 3rem;
+  color: #333;
+}
+
+pre {
+  letter-spacing: 1px;
+  background: #f1f1f1;
+  padding: 0;
+}
+
+code {
+  padding: 1rem;
+  font-size: inherit;
+  display: block;
+  white-space: pre-wrap;
+  border: 1px solid #f1f1f1;
+}
+
+input[type="text"] {
+  font-size: inherit;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  box-shadow: inset 1px 1px 4px 0px rgba(0,0,0,0.1);
+  border-radius: 0;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  font-size: inherit;
+  appearance: none;
+  color: #fff;
+  border: 1px solid #2196f3;
+  background: #2196F3;
+  margin: 0 0.5rem 0 0;
+  cursor: pointer;
+  border-radius: 0.25rem;
+}
+
+button:hover,
+button:focus {
+  background: #1976d2;
+}
+
+.wrapper {
+  border: 1px #ccc solid;
+  padding: 1rem;
+  margin: 0 0 2rem 0;
+}
+
+.github {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.select {
+  max-width: 200px;
+  position: relative;
+}
+
+.select__button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.select__button__icon {
+  fill: #fff;
+  align-self: center;
+  transition: transform 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.select--open .select__button__icon {
+  transform: rotate(180deg);
+}
+
+.select__options {
+  position: absolute;
+  width: 100%;
+  background: #fff;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-width: 0 1px 1px 1px;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.select--open .select__options {
+  max-height: 160px;
+  box-shadow: 0 1px 24px 0 rgba(0, 0, 0, 0.2);
+}
+
+.select__option {
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+}
+
+.is-loading:after {
+  content: '';
+  position: relative;
+  animation: rotateForever 0.4s linear infinite;
+  height: 0.75em;
+  width: 0.75em;
+  margin-left: 1rem;
+  border: 1px solid #fff;
+  border-color: transparent transparent #fff #fff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@keyframes rotateForever {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

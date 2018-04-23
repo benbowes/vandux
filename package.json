@@ -1,0 +1,48 @@
+{
+  "name": "vandux",
+  "version": "1.0.9",
+  "description": "Vandux - VanillaJS Redux style pattern for use with standard html",
+  "main": "dist/vandux.js",
+  "scripts": {
+    "start": "webpack --config webpack.config.prebuild.js && NODE_ENV=development webpack-dev-server",
+    "build": "webpack --config webpack.config.prebuild.js && NODE_ENV=production webpack -p",
+    "test": "webpack --config webpack.config.prebuild.js && mocha --require babel-register 'src/**/*__test__.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benbowes/vandux.git"
+  },
+  "keywords": [
+    "vanilla",
+    "js",
+    "redux",
+    "style",
+    "store"
+  ],
+  "author": "bb@benbowes.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benbowes/vandux/issues"
+  },
+  "homepage": "https://github.com/benbowes/vandux#readme",
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
+    "babel-core": "6.25.x",
+    "babel-eslint": "7.2.x",
+    "babel-loader": "7.1.x",
+    "babel-preset-es2015": "6.24.x",
+    "babel-preset-stage-0": "6.24.x",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "deep-freeze": "^0.0.1",
+    "eslint": "^4.13.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "jsdom": "^11.5.1",
+    "jsdom-simulant": "^1.1.2",
+    "mocha": "^4.0.1",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
+  }
+}
