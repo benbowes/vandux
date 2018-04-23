@@ -61,16 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
 #### componentA/index.js
 
 ```js
-// Component setup function. Connects the html component with the store.
-// Initial state is passed in to the component. When the component is connected 
-// it will render with it's initial state automatically with an `INIT` action.
+// Component setup function.
+// Initial state is passed in to the component, connecting the component with the store.
+// It will render with it's initial state automatically using an action of type `INIT`.
 
 import { createStore } from 'vandux';
 import reducer from './reducer';
 import render from './render';
 
 
-// Creates a relationship between event listeners and the store
+// Creates a relationship between event listeners and the store.
 
 function addListeners(el, store) {
   el.querySelector('[data-vx=componentA__update-name]').addEventListener('keyup', e =>
@@ -80,7 +80,7 @@ function addListeners(el, store) {
     store.publish('UPDATE_TITLE', { name: e.target.value }));
 }
 
-// Connect HTML component with store
+// Setup function, Connecting the component with the store.
 
 export default (initialState) => {
   const el = document.querySelector('[data-vx="componentA"]');
