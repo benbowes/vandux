@@ -36,7 +36,7 @@
     "deep-freeze": "^0.0.1",
     "jsdom": "^11.5.1",
     "jsdom-simulant": "^1.1.2",
-    "mocha": "^7.1.2",
+    "mocha": "^10.2.0",
     "ts-loader": "^7.0.4",
     "typescript": "^2.6.2",
     "webpack": "^4.43.0",
